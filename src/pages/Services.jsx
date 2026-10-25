@@ -1,122 +1,143 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { toast } from 'sonner'
 import {
-  Stethoscope, Baby, Heart, TestTubes, Syringe, Ambulance,
-  Activity, Bone, Sparkles, ArrowRight,
-  CalendarCheck, Building, ClipboardCheck, Pill, CheckCircle,
-  Clock, HelpCircle
+  Stethoscope, Baby, TestTubes, CheckCircle,
+  Clock, HelpCircle, Phone, ArrowRight, ShieldCheck, HeartPulse,
+  Volume2, Moon, Wind, Microscope, BedDouble, Award
 } from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import Prism from '../components/Prism'
+import ClinicFacilities from '../components/ClinicFacilities'
 import { useScrollReveal } from '../utils/scrollReveal'
 
-const categories = ['All Services', 'Primary Care', 'Specialized Care', 'Diagnostic & Emergency']
+import operationRoomImg from '../assets/clinic/operation_room.webp'
+import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
+
+const categories = [
+  'All Services',
+  'Specialty Clinics',
+  'Audiology & Diagnostics',
+  'Surgeries & Operation Theatre',
+  'Inpatient & Sterilization'
+]
 
 const services = [
   {
-    category: 'Primary Care',
-    icon: Stethoscope,
-    title: 'General Medicine',
-    desc: 'Comprehensive preventive care, annual physicals, chronic condition management, and treatment for everyday illnesses.',
-    features: ['Routine checkups & physicals', 'Chronic disease management', 'Prescription refills', 'Preventative health advice'],
-    color: 'from-teal-500 to-cyan-600',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop',
-    duration: '30-45 mins'
-  },
-  {
-    category: 'Primary Care',
-    icon: Baby,
-    title: 'Pediatrics',
-    desc: 'Dedicated healthcare for infants, children, and teenagers, covering growth milestones, vaccines, and acute illness care.',
-    features: ['Well-child visits', 'Immunization schedules', 'Developmental assessments', 'Adolescent health'],
-    color: 'from-blue-500 to-indigo-600',
+    category: 'Specialty Clinics',
+    icon: Wind,
+    title: 'Allergy Clinic',
+    desc: 'Assessment and management of allergic conditions affecting the nose, throat and upper respiratory tract.',
+    features: ['Nasal allergy & rhinitis evaluation', 'Upper airway sensitivity management', 'Allergen symptom control', 'Customised medical management'],
     image: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600&h=400&fit=crop',
-    duration: '30 mins'
+    duration: 'Consultation'
   },
   {
-    category: 'Specialized Care',
-    icon: Heart,
-    title: "Women's Health",
-    desc: 'Holistic reproductive healthcare, prenatal and postnatal support, fertility guidance, and routine screenings.',
-    features: ['Annual well-woman exams', 'Prenatal & postnatal care', 'Family planning', 'Menopause management'],
-    color: 'from-pink-500 to-rose-600',
+    category: 'Specialty Clinics',
+    icon: Baby,
+    title: 'Paediatric ENT Clinic',
+    desc: 'ENT services specifically tailored to the unique clinical needs of infants, children and adolescents.',
+    features: ['Childhood ear & throat conditions', 'Paediatric tonsil & adenoid care', 'Airway & breathing evaluation', 'Gentle, child-friendly examination'],
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop',
+    duration: 'Specialised Care'
+  },
+  {
+    category: 'Specialty Clinics',
+    icon: Moon,
+    title: 'Sleep & Snoring Clinic',
+    desc: 'Evaluation of snoring and sleep-related breathing problems to identify airway obstruction and underlying causes.',
+    features: ['Snoring severity evaluation', 'Sleep-disordered breathing assessment', 'Upper airway clinical examination', 'Individualised management pathways'],
+    image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&h=400&fit=crop',
+    duration: 'Focused Clinic'
+  },
+  {
+    category: 'Specialty Clinics',
+    icon: Award,
+    title: 'Vertigo & Balance Disorders Clinic',
+    desc: 'Clinical assessment of dizziness, vertigo and balance disorders to help identify their underlying vestibular causes.',
+    features: ['Inner ear balance evaluation', 'Vestibular disorder assessments', 'Dizziness diagnosis & grading', 'Therapeutic & rehabilitation guidance'],
     image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop',
-    duration: '45 mins'
+    duration: 'Assessment'
   },
   {
-    category: 'Specialized Care',
-    icon: Activity,
-    title: 'Cardiology',
-    desc: 'Advanced cardiovascular diagnostics, ECG, echocardiography, hypertension care, and heart attack prevention.',
-    features: ['Heart health screenings', 'ECG & Echocardiograms', 'Hypertension care', 'Lifestyle counseling'],
-    color: 'from-red-500 to-orange-600',
-    image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop',
-    duration: '60 mins'
+    category: 'Specialty Clinics',
+    icon: Stethoscope,
+    title: 'Voice & Swallowing Clinic',
+    desc: 'Evaluation and management of problems affecting the voice, vocal cords, and swallowing function.',
+    features: ['Voice strain & hoarseness evaluation', 'Laryngeal & vocal cord examination', 'Swallowing difficulty assessment', 'Speech & vocal hygiene guidance'],
+    image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&h=400&fit=crop',
+    duration: 'Clinical Review'
   },
   {
-    category: 'Specialized Care',
-    icon: Bone,
-    title: 'Orthopedics',
-    desc: 'Care for bone fractures, joint pain, sports injuries, arthritis management, and post-surgery rehabilitation.',
-    features: ['Joint pain treatment', 'Sports injury care', 'Fracture management', 'Physical therapy referrals'],
-    color: 'from-amber-500 to-yellow-600',
-    image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop',
-    duration: '45 mins'
+    category: 'Audiology & Diagnostics',
+    icon: Volume2,
+    title: 'Audiology Clinic',
+    desc: 'Assessment and management of hearing-related disorders assisting in diagnosis and guiding appropriate rehabilitation.',
+    features: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic testing', 'Comprehensive hearing assessments', 'Hearing rehabilitation advice'],
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop',
+    duration: 'Diagnostic'
   },
   {
-    category: 'Specialized Care',
-    icon: Sparkles,
-    title: 'Dermatology',
-    desc: 'Expert skin examinations, acne treatments, eczema management, mole checks, and medical cosmetic therapies.',
-    features: ['Acne & eczema care', 'Skin cancer screenings', 'Mole evaluations', 'Allergy diagnostics'],
-    color: 'from-fuchsia-500 to-pink-600',
-    image: 'https://images.unsplash.com/photo-1512290900672-1f48d08c5c7d?w=600&h=400&fit=crop',
-    duration: '30 mins'
-  },
-  {
-    category: 'Diagnostic & Emergency',
+    category: 'Audiology & Diagnostics',
     icon: TestTubes,
     title: 'Laboratory Services',
-    desc: 'Comprehensive diagnostic lab testing with same-day results for blood work, urinalysis, cultures, and panels.',
-    features: ['Blood tests & panels', 'Rapid strep & flu testing', 'Lipid & glucose panels', 'Pathology services'],
-    color: 'from-purple-500 to-violet-600',
+    desc: 'Essential investigations at one location supporting clinical diagnosis and treatment monitoring across medical conditions.',
+    features: ['Haematology, Biochemistry & Serology', 'Endocrinology & Microbiology', 'Culture & Sensitivity analysis', 'Liver & Kidney Function Tests (LFT/KFT)'],
     image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&h=400&fit=crop',
-    duration: '15 mins'
+    duration: 'Same-Day Tests'
   },
   {
-    category: 'Diagnostic & Emergency',
-    icon: Syringe,
-    title: 'Vaccinations & Immunizations',
-    desc: 'Full spectrum of vaccines for seasonal influenza, childhood immunizations, travel vaccines, and booster shots.',
-    features: ['Flu shots', 'Childhood vaccines', 'Travel immunizations', 'Tetanus & boosters'],
-    color: 'from-green-500 to-emerald-600',
-    image: 'https://images.unsplash.com/photo-1632053002928-87e3cf4d88e6?w=600&h=400&fit=crop',
-    duration: '15 mins'
+    category: 'Audiology & Diagnostics',
+    icon: HeartPulse,
+    title: 'Specialised Health Packages',
+    desc: 'Comprehensive diagnostic screening packages tailored for cardiac and diabetic health monitoring.',
+    features: ['Cardiac Health Package', 'Diabetic Health Package', 'Vital organ parameter checks', 'Physician report review'],
+    image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop',
+    duration: 'Health Package'
   },
   {
-    category: 'Diagnostic & Emergency',
-    icon: Ambulance,
-    title: 'Emergency & Urgent Care',
-    desc: 'Immediate, walk-in medical attention for non-life-threatening urgent conditions, minor trauma, and acute illness.',
-    features: ['Minor burn & cut treatment', 'Acute infection care', 'Sprains & strains', 'Rapid stabilization'],
-    color: 'from-rose-600 to-red-700',
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop',
-    duration: 'Immediate'
+    category: 'Surgeries & Operation Theatre',
+    icon: Microscope,
+    title: 'Operation Theatre Complex',
+    desc: 'Advanced facilities equipped to support a full spectrum of microsurgical and endoscopic ENT procedures.',
+    features: ['State-of-the-art laminar-flow OT', 'High-precision operating microscopes', 'Advanced endoscopic camera systems', 'Specialised ENT surgical instrumentation'],
+    image: operationRoomImg,
+    duration: 'Surgical Facility'
+  },
+  {
+    category: 'Surgeries & Operation Theatre',
+    icon: Stethoscope,
+    title: 'ENT Surgeries (FESS & Otology)',
+    desc: 'Surgical services including procedures for selected ear, nose, throat and sinus conditions after clinical evaluation.',
+    features: ['Adenotonsillectomy (tonsils & adenoids)', 'Functional Endoscopic Sinus Surgery (FESS)', 'Mastoid Exploration Surgery (middle ear)', 'Evidence-based surgical indications'],
+    image: operationRoomImg,
+    duration: 'Clinical Surgery'
+  },
+  {
+    category: 'Inpatient & Sterilization',
+    icon: ShieldCheck,
+    title: 'Sterilization Facility (CSSD)',
+    desc: 'Central Sterile Services Department following established sterilization protocols for medical instruments.',
+    features: ['Established sterilization protocols', 'Advanced autoclave & processing units', 'Trained sterilization technicians', 'Uncompromising patient safety standards'],
+    image: 'https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&h=400&fit=crop',
+    duration: 'CSSD Facility'
+  },
+  {
+    category: 'Inpatient & Sterilization',
+    icon: BedDouble,
+    title: 'Inpatient Facilities',
+    desc: 'A comfortable space for recovery with five air-conditioned single rooms, providing privacy and comfort for patients.',
+    features: ['5 Air-conditioned single rooms', 'Comfortable patient beds', 'Dedicated recovery room', 'Ventilator-supported recovery facility'],
+    image: patientRoom2Img,
+    duration: 'Inpatient Care'
   },
 ]
 
 const steps = [
-  { icon: CalendarCheck, title: '1. Book an Appointment', desc: 'Choose your specialist, date, and preferred time online or over the phone.' },
-  { icon: Building, title: '2. Visit Our Center', desc: 'Check in smoothly at our modern reception desk with zero wait time.' },
-  { icon: ClipboardCheck, title: '3. Expert Consultation', desc: 'Undergo a detailed examination and discussion with your physician.' },
-  { icon: Pill, title: '4. Ongoing Wellness', desc: 'Receive your personalized treatment plan, medication, and follow-up support.' },
-]
-
-const insurances = [
-  'Blue Cross Blue Shield', 'Aetna', 'Cigna', 'UnitedHealthcare',
-  'Humana', 'Kaiser Permanente', 'Medicare', 'Medicaid'
+  { icon: Phone, title: '1. Clinical Inquiry', desc: 'Contact our clinic reception via phone, email or in person for consultation scheduling.' },
+  { icon: Stethoscope, title: '2. Consultation & Exam', desc: 'Thorough examination and detailed symptom discussion by our experienced ENT consultants.' },
+  { icon: TestTubes, title: '3. Diagnostic Evaluation', desc: 'Audiometry, endoscopic evaluation, or laboratory tests performed on site as indicated.' },
+  { icon: HeartPulse, title: '4. Tailored Treatment', desc: 'Individualised medical therapy, precision surgical procedure, or inpatient recovery care.' },
 ]
 
 function Services() {
@@ -130,11 +151,11 @@ function Services() {
   return (
     <div className="overflow-hidden">
       <PageBanner
-        title="Our Clinical"
-        highlight="Specialties"
+        title="Our ENT"
+        highlight="Services"
         breadcrumb="Services"
-        subtitle="Comprehensive medical care and advanced diagnostic procedures delivered by board-certified specialists"
-        badge="Multi-Specialty Clinical Departments"
+        subtitle="Dedicated specialty clinics, audiology assessment, diagnostic investigations, and advanced surgical facilities"
+        badge="Specialised ENT Care"
       />
 
       {/* ===== SERVICE CATEGORY TABS ===== */}
@@ -142,13 +163,13 @@ function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 reveal">
             <span className="text-accent font-bold text-sm uppercase tracking-wider mb-3 inline-block">
-              Clinical Specializations
+              Ear, Nose & Throat Care
             </span>
             <h2 className="text-5xl sm:text-6xl font-black text-text mb-6 tracking-tight">
-              Specialized Care for <span className="text-gradient-primary">Every Life Stage</span>
+              Comprehensive ENT Services & <span className="text-gradient-primary">Facilities</span>
             </h2>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-              Explore our comprehensive range of clinical departments led by board-certified physicians
+              Specialised ENT Care | Advanced Diagnostics | Surgical Expertise | Comfortable Inpatient Facilities
             </p>
           </div>
 
@@ -157,10 +178,7 @@ function Services() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => {
-                  setActiveTab(cat)
-                  toast.info(cat === 'All Services' ? 'Displaying all medical services' : `Browsing ${cat}`, { duration: 1500 })
-                }}
+                onClick={() => setActiveTab(cat)}
                 className={`px-8 py-4 rounded-full text-base font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === cat
                     ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
@@ -224,10 +242,10 @@ function Services() {
 
                     <div className="pt-5 border-t border-slate-100">
                       <Link
-                        to="/appointment"
+                        to="/contact"
                         className="w-full py-3 bg-gradient-to-r from-primary to-primary-light text-white rounded-xl font-bold text-center text-sm shadow-md shadow-primary/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>Book Consultation</span>
+                        <span>Inquire About Care</span>
                         <ArrowRight size={16} />
                       </Link>
                     </div>
@@ -239,18 +257,21 @@ function Services() {
         </div>
       </section>
 
+      {/* ===== INPATIENT & SURGICAL INFRASTRUCTURE SHOWCASE ===== */}
+      <ClinicFacilities />
+
       {/* ===== HOW IT WORKS ===== */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20 reveal">
             <span className="text-accent font-bold text-sm uppercase tracking-wider mb-3 inline-block">
-              Seamless Experience
+              Clinical Pathway
             </span>
             <h2 className="text-5xl sm:text-6xl font-black text-text mb-6 tracking-tight">
-              How Your <span className="text-gradient-primary">Visit Works</span>
+              From Consultation to <span className="text-gradient-primary">Recovery</span>
             </h2>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-              We've redesigned the patient journey to be fast, stress-free, and centered around you
+              From clinical examination and precise audiology/lab testing to surgery and recovery, essential ENT care is unified in one location
             </p>
           </div>
 
@@ -262,40 +283,6 @@ function Services() {
                 </div>
                 <h3 className="text-xl font-bold text-text mb-3">{step.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== INSURANCE PARTNERS ===== */}
-      <section className="py-32 bg-bg-tertiary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20 reveal">
-            <span className="text-accent font-bold text-sm uppercase tracking-wider mb-3 inline-block">
-              Affordable Care
-            </span>
-            <h2 className="text-5xl sm:text-6xl font-black text-text mb-6 tracking-tight">
-              Insurance <span className="text-gradient-primary">Partners</span>
-            </h2>
-            <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-              We work with major insurance providers to make sure you get the care you need with minimal out-of-pocket costs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {insurances.map((ins, i) => (
-              <div
-                key={i}
-                className="reveal bg-white rounded-3xl p-8 text-center shadow-md hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center cursor-pointer border border-gray-100"
-              >
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 text-primary font-black text-2xl">
-                  {ins.charAt(0)}
-                </div>
-                <h4 className="font-bold text-text text-base">{ins}</h4>
-                <span className="text-success text-xs font-semibold mt-2 inline-flex items-center gap-1">
-                  <CheckCircle size={12} /> In-Network
-                </span>
               </div>
             ))}
           </div>

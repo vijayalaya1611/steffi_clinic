@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { HeartPulse, Phone, Mail, MapPin, Clock, ArrowRight, Send } from 'lucide-react'
-import { Facebook, Twitter, Instagram, Linkedin } from './SocialIcons'
+import { Phone, Mail, MapPin, Clock, ArrowRight, Send } from 'lucide-react'
+import logo from '../assets/logo.jpeg'
+// import { Facebook, Twitter, Instagram, Linkedin } from './SocialIcons'
 
 function Footer() {
   return (
@@ -41,20 +42,25 @@ function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center shadow-md shadow-primary/30">
-                <HeartPulse className="text-white w-6 h-6 stroke-[2.2]" />
+              <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md shadow-primary/30 border border-white/20 shrink-0">
+                <img
+                  src={logo}
+                  alt="Steffi Clinic Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="flex items-baseline gap-1">
                   <span className="text-xl font-extrabold text-white">Steffi</span>
                   <span className="text-xl font-extrabold text-primary-lighter">Clinic</span>
                 </div>
-                <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Medical & Wellness Center</p>
+                <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Specialised ENT & Surgical Center</p>
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Providing compassionate, comprehensive healthcare for your entire family since 2009. We combine modern medicine with personalized care.
+              Expert ENT care, thoughtfully delivered. Dedicated specialty clinics, audiology assessment, diagnostic investigations, and advanced surgical facilities.
             </p>
+            {/* Social media icons preserved for later use
             <div className="flex gap-2">
               {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
                 <motion.a
@@ -67,6 +73,7 @@ function Footer() {
                 </motion.a>
               ))}
             </div>
+            */}
           </div>
 
           {/* Quick Links */}
@@ -77,8 +84,7 @@ function Footer() {
                 { name: 'Home', path: '/' },
                 { name: 'About Us', path: '/about' },
                 { name: 'Our Services', path: '/services' },
-                { name: 'Our Doctors', path: '/doctors' },
-                { name: 'Book Appointment', path: '/appointment' },
+                { name: 'Our Consultants', path: '/doctors' },
                 { name: 'Contact Us', path: '/contact' },
               ].map((link) => (
                 <li key={link.path}>
@@ -96,9 +102,16 @@ function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-black mb-6">Our Services</h3>
+            <h3 className="text-lg font-black mb-6">Our ENT Services</h3>
             <ul className="space-y-3">
-              {['General Medicine', 'Pediatrics', 'Women\'s Health', 'Cardiology', 'Dermatology', 'Emergency Care'].map((service) => (
+              {[
+                'Specialty ENT Clinics',
+                'Audiology & Hearing Assessment',
+                'Laboratory Investigations',
+                'Operation Theatre & CSSD',
+                'Advanced ENT Surgeries',
+                'Inpatient Care & Recovery'
+              ].map((service) => (
                 <li key={service}>
                   <Link
                     to="/services"
@@ -122,8 +135,8 @@ function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-white/50 uppercase mb-1">Phone</p>
-                  <a href="tel:+15551234567" className="text-white/90 text-sm font-medium hover:text-primary-light transition-colors">
-                    +1 (555) 123-4567
+                  <a href="tel:+916379051789" className="text-white/90 text-sm font-medium hover:text-primary-light transition-colors">
+                    +91 6379051789
                   </a>
                 </div>
               </li>
@@ -144,7 +157,7 @@ function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-white/50 uppercase mb-1">Address</p>
-                  <p className="text-white/90 text-sm font-medium">123 Healthcare Ave, Medical District, NY 10001</p>
+                  <p className="text-white/90 text-sm font-medium">19, Avayambalpuram St, opp. Vijaya Theatre, Gandhi Nagar, Mappadugai, Mayiladuthurai, Tamil Nadu 609001</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">

@@ -1,68 +1,61 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { toast } from 'sonner'
-import confetti from 'canvas-confetti'
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle, ArrowRight } from 'lucide-react'
+import {
+  Phone, Mail, MapPin, Clock, ArrowRight, ExternalLink,
+  ShieldCheck, Stethoscope, BedDouble, Sparkles, Building, Users
+} from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import { stagger, scaleIn } from '../utils/animations'
 
+import clinicExteriorImg from '../assets/clinic/clinic_exterior.webp'
+import receptionImg from '../assets/clinic/reception.webp'
+import waitingArea1Img from '../assets/clinic/waiting_area1.webp'
+import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
+
 const contactInfo = [
-  { icon: Phone, title: 'Phone', value: '+1 (555) 123-4567', sub: 'Mon-Sat, 8AM-8PM', color: 'from-teal-500 to-cyan-500' },
-  { icon: Mail, title: 'Email', value: 'info@stefficlinic.com', sub: 'We reply within 24 hours', color: 'from-sky-500 to-blue-600' },
-  { icon: MapPin, title: 'Address', value: '123 Healthcare Ave', sub: 'Medical District, NY 10001', color: 'from-primary to-teal-700' },
+  {
+    icon: Phone,
+    title: 'Clinic Phone',
+    value: '+91 6379051789',
+    sub: 'Consultation & Inpatient Support',
+    color: 'from-teal-500 to-cyan-500',
+    link: 'tel:+916379051789'
+  },
+  {
+    icon: Mail,
+    title: 'Email Inquiries',
+    value: 'info@stefficlinic.com',
+    sub: 'Direct clinical assistance',
+    color: 'from-sky-500 to-blue-600',
+    link: 'mailto:info@stefficlinic.com'
+  },
+  {
+    icon: MapPin,
+    title: 'Clinic Location',
+    value: 'Mayiladuthurai, Tamil Nadu',
+    sub: '19, Avayambalpuram St, opp. Vijaya Theatre',
+    color: 'from-primary to-teal-700',
+    link: 'https://maps.app.goo.gl/WkQbREsCsr7ztYhn6'
+  },
 ]
 
 const hours = [
   { day: 'Monday - Friday', time: '8:00 AM - 8:00 PM' },
-  { day: 'Saturday', time: '9:00 AM - 5:00 PM' },
-  { day: 'Sunday', time: 'Emergency Only' },
+  { day: 'Saturday', time: '8:00 AM - 6:00 PM' },
+  { day: 'Sunday & Inpatient', time: '24/7 Inpatient Nursing Care' },
 ]
 
 function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
-  const [errors, setErrors] = useState({})
-
-  const validate = () => {
-    const errs = {}
-    if (!form.name.trim()) errs.name = 'Name is required'
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Valid email is required'
-    if (!form.message.trim()) errs.message = 'Message is required'
-    return errs
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs)
-      toast.error('Please fill in all required fields correctly')
-      return
-    }
-    setErrors({})
-    setSubmitted(true)
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    })
-    toast.success('Thank you! Your message has been sent to our medical team.', {
-      duration: 5000,
-      position: 'top-center'
-    })
-  }
-
   return (
     <div className="overflow-hidden">
       <PageBanner
         title="Contact"
-        highlight="Our Clinical Team"
+        highlight="Steffi Clinic"
         breadcrumb="Contact"
-        subtitle="We're here to assist you. Reach out to schedule visits or speak with our care coordinators."
-        badge="Patient Inquiries & Support"
+        subtitle="Specialised ENT Care, Thoughtfully Delivered. Reach out to our clinical team for consultations, diagnostic investigations, and surgical inquiries."
+        badge="Specialised ENT Care • Mayiladuthurai, Tamil Nadu"
       />
 
-      {/* Contact Cards */}
+      {/* Quick Contact Cards */}
       <section className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8">
         <motion.div
           initial="hidden"
@@ -71,10 +64,13 @@ function Contact() {
           className="grid md:grid-cols-3 gap-6"
         >
           {contactInfo.map((info, i) => (
-            <motion.div
+            <motion.a
               key={i}
+              href={info.link}
+              target={info.link.startsWith('http') ? '_blank' : undefined}
+              rel={info.link.startsWith('http') ? 'noreferrer' : undefined}
               variants={scaleIn}
-              className="bg-white rounded-2xl p-7 shadow-md shadow-slate-900/5 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200/80 h-full group"
+              className="bg-white rounded-2xl p-7 shadow-md shadow-slate-900/5 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200/80 h-full group block"
             >
               <div className="w-14 h-14 bg-teal-50/90 text-primary border border-teal-200/80 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xs group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary/25 transition-all duration-300">
                 <info.icon size={26} strokeWidth={2.2} />
@@ -82,174 +78,307 @@ function Contact() {
               <h3 className="font-bold text-slate-900 text-lg mb-1">{info.title}</h3>
               <p className="text-primary font-bold text-base">{info.value}</p>
               <p className="text-slate-500 text-xs mt-1 font-medium">{info.sub}</p>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
       </section>
 
-      {/* Contact Form + Map */}
+      {/* Clinic Location & Working Hours Section */}
       <section className="py-24 bg-bg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16">
-          {/* Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-3xl p-10 shadow-sm border border-gray-100"
-          >
-            <h2 className="text-3xl font-black text-text mb-2">Send Us a Message</h2>
-            <p className="text-text-light text-sm mb-8">Fill out the form below and we'll get back to you promptly.</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-10 items-start">
+            {/* Live Interactive Google Maps Card (7 Cols) */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-7 bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm flex flex-col"
+            >
+              {/* Header with Exact Address & Direct GMap Link */}
+              <div className="bg-gradient-to-r from-slate-900 via-primary-dark to-slate-900 text-white p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-3 mb-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-400/30 flex items-center justify-center shrink-0">
+                      <MapPin size={20} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Steffi Clinic Location</h3>
+                      <p className="text-xs text-teal-300 font-semibold">Specialised ENT & Surgical Facilities</p>
+                    </div>
+                  </div>
+                  <a
+                    href="https://maps.app.goo.gl/WkQbREsCsr7ztYhn6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition-colors shadow-sm shrink-0 cursor-pointer"
+                  >
+                    <span>Open in Maps</span>
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
 
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-green-50 border border-green-200 rounded-2xl p-10 text-center"
-              >
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle size={40} className="text-green-600" />
-                </div>
-                <h3 className="text-2xl font-black text-green-800 mb-2">Message Sent!</h3>
-                <p className="text-green-600 mb-6">Thank you for reaching out. We'll respond within 24 hours.</p>
-                <button
-                  onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', subject: '', message: '' }) }}
-                  className="text-primary font-bold text-sm cursor-pointer hover:underline"
-                >
-                  Send Another Message
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-text mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      value={form.name}
-                      onChange={e => setForm({ ...form, name: e.target.value })}
-                      className={`w-full px-5 py-3.5 rounded-2xl border ${errors.name ? 'border-red-400 bg-red-50/30' : 'border-gray-200'} focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition text-sm`}
-                      placeholder="John Doe"
-                    />
-                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-text mb-2">Email *</label>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={e => setForm({ ...form, email: e.target.value })}
-                      className={`w-full px-5 py-3.5 rounded-2xl border ${errors.email ? 'border-red-400 bg-red-50/30' : 'border-gray-200'} focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition text-sm`}
-                      placeholder="john@example.com"
-                    />
-                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                  </div>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-text mb-2">Phone</label>
-                    <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={e => setForm({ ...form, phone: e.target.value })}
-                      className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition text-sm"
-                      placeholder="+1 (555) 000-0000"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-text mb-2">Subject</label>
-                    <select
-                      value={form.subject}
-                      onChange={e => setForm({ ...form, subject: e.target.value })}
-                      className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition text-sm bg-white"
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="appointment">Appointment</option>
-                      <option value="feedback">Feedback</option>
-                      <option value="emergency">Emergency</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-text mb-2">Message *</label>
-                  <textarea
-                    rows={5}
-                    value={form.message}
-                    onChange={e => setForm({ ...form, message: e.target.value })}
-                    className={`w-full px-5 py-3.5 rounded-2xl border ${errors.message ? 'border-red-400 bg-red-50/30' : 'border-gray-200'} focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition text-sm resize-none`}
-                    placeholder="How can we help you?"
-                  />
-                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
-                </div>
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-primary to-primary-light text-white py-4 rounded-xl font-bold shadow-lg shadow-primary/25 hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-base"
-                >
-                  <Send size={18} />
-                  Send Message
-                </motion.button>
-              </form>
-            )}
-          </motion.div>
+                <p className="text-teal-100/90 text-sm font-medium leading-relaxed mt-3">
+                  19, Avayambalpuram Street, Opposite to Vijaya Theatre, Gandhi Nagar, Mappadugai, Mayiladuthurai, Tamil Nadu 609001
+                </p>
 
-          {/* Map + Hours */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            {/* Map Card */}
-            <div className="bg-gradient-to-br from-primary/5 to-primary-light/5 rounded-3xl h-80 relative overflow-hidden border border-primary/10 shadow-sm flex items-center justify-center">
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, var(--color-primary) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-              <div className="text-center relative z-10">
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-2xl flex items-center justify-center mx-auto shadow-xl glow-primary">
-                    <MapPin size={32} className="text-white" />
-                  </div>
-                </motion.div>
-                <h3 className="text-xl font-black text-text mt-4">Steffi Clinic</h3>
-                <p className="text-text-light text-sm mt-1">123 Healthcare Ave, Medical District, NY</p>
+                <div className="mt-3.5 flex flex-wrap items-center gap-2 text-xs text-teal-200/90">
+                  <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">Landmark: Opp. Vijaya Theatre</span>
+                  <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">Near Cutcherry Road</span>
+                </div>
+              </div>
+
+              {/* Embedded Interactive Google Maps Iframe */}
+              <div className="relative h-96 sm:h-[420px] w-full bg-slate-100">
+                <iframe
+                  title="Steffi Clinic Google Map"
+                  src="https://maps.google.com/maps?q=11.1043359,79.6493735&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                  className="w-full h-full border-0"
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+
+              {/* Bottom Quick Directions Strip */}
+              <div className="p-5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-600">
+                <span className="font-semibold text-slate-800">GPS Coordinates: 11.1043° N, 79.6494° E</span>
                 <a
-                  href="https://maps.google.com"
+                  href="https://maps.app.goo.gl/WkQbREsCsr7ztYhn6"
                   target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-accent font-bold text-sm mt-4 hover:underline"
+                  rel="noopener noreferrer"
+                  className="text-primary font-bold hover:underline inline-flex items-center gap-1.5"
                 >
-                  View on Google Maps <ArrowRight size={16} />
+                  <span>Get Driving Directions</span>
+                  <ArrowRight size={14} />
                 </a>
               </div>
+            </motion.div>
+
+            {/* Working Hours & Clinical Inquiry Information (5 Cols) */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-5 space-y-6"
+            >
+              {/* Working Hours Card */}
+              <div className="bg-white rounded-3xl p-7 sm:p-8 shadow-sm border border-gray-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-primary/10 p-3 rounded-2xl text-primary">
+                    <Clock size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-text">Clinic Hours</h3>
+                    <p className="text-xs text-text-light font-medium">Consultation & Outpatient Care</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {hours.map((h, i) => (
+                    <div key={i} className="flex justify-between items-center py-2.5 border-b border-gray-100 last:border-0">
+                      <span className="text-text font-medium text-sm">{h.day}</span>
+                      <span className={`text-sm font-bold ${h.time.includes('Inpatient') ? 'text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full' : 'text-primary'}`}>
+                        {h.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 bg-teal-50 border border-teal-100 rounded-2xl p-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <Phone size={20} className="text-primary shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold text-teal-800 uppercase tracking-wide">Direct Helpline</p>
+                      <a href="tel:+916379051789" className="text-slate-900 font-extrabold text-base hover:text-primary transition-colors">
+                        +91 6379051789
+                      </a>
+                    </div>
+                  </div>
+                  <a
+                    href="tel:+916379051789"
+                    className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-bold rounded-xl transition-colors shadow-xs shrink-0"
+                  >
+                    Call Now
+                  </a>
+                </div>
+              </div>
+
+              {/* Clinical Services Information Card */}
+              <div className="bg-white rounded-3xl p-7 sm:p-8 shadow-sm border border-gray-100 space-y-4">
+                <h4 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                  <Stethoscope size={18} className="text-primary" />
+                  <span>Available at this Location</span>
+                </h4>
+
+                <div className="space-y-3 text-xs text-slate-600">
+                  <div className="flex items-start gap-2.5">
+                    <ShieldCheck size={16} className="text-teal-600 shrink-0 mt-0.5" />
+                    <span><strong>5 Specialty Clinics:</strong> Allergy, Paediatric ENT, Sleep & Snoring, Vertigo, Voice.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <ShieldCheck size={16} className="text-teal-600 shrink-0 mt-0.5" />
+                    <span><strong>Diagnostic Facilities:</strong> Pure Tone Audiometry (PTA) & Clinical Pathology Lab.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <BedDouble size={16} className="text-teal-600 shrink-0 mt-0.5" />
+                    <span><strong>Inpatient & OT:</strong> Laminar-flow Operation Theatre, CSSD, and 5 AC Single Rooms.</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex gap-3">
+                  <a
+                    href="https://maps.app.goo.gl/WkQbREsCsr7ztYhn6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-slate-50 hover:bg-primary text-slate-800 hover:text-white rounded-xl font-bold text-center text-xs transition-colors border border-slate-200/90 hover:border-transparent flex items-center justify-center gap-2 shadow-xs"
+                  >
+                    <ExternalLink size={14} />
+                    <span>Get Directions on Google Maps</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== WHEN YOU VISIT STEFFI CLINIC (AUTHENTIC FACILITY TOUR) ===== */}
+      <section className="py-20 bg-white border-t border-slate-200/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-50 border border-teal-200/80 text-primary font-bold text-xs uppercase tracking-wider mb-3">
+              <Sparkles size={13} className="text-teal-600" />
+              <span>Welcoming Clinic Environment</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+              When You Visit Steffi Clinic
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              Designed for patient convenience, comfort, and clinical hygiene. Here is what awaits you at our Mayiladuthurai center.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Card 1: Exterior Building */}
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-lg transition-all group flex flex-col">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={clinicExteriorImg}
+                  alt="Steffi Clinic Hospital Building & Main Entrance"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-primary shadow-xs flex items-center gap-1.5">
+                  <Building size={12} />
+                  <span>Hospital Building</span>
+                </span>
+              </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-primary transition-colors">
+                    Clinic Facade & Entrance
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Conveniently located multi-storey ENT hospital opposite Vijaya Theatre with accessible roadside entry.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-teal-700 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+                  <span>Landmark location in Mayiladuthurai</span>
+                </div>
+              </div>
             </div>
 
-            {/* Working Hours */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="bg-primary/10 p-3 rounded-2xl">
-                  <Clock size={24} className="text-primary" />
+            {/* Card 2: Reception */}
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-lg transition-all group flex flex-col">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={receptionImg}
+                  alt="Steffi Clinic Main Reception & Welcome Desk"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-primary shadow-xs flex items-center gap-1.5">
+                  <Building size={12} />
+                  <span>Front Office</span>
+                </span>
+              </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-primary transition-colors">
+                    Main Reception & Inquiries
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Hospitable registration desk assisting with appointments, consultations, and doctor schedules.
+                  </p>
                 </div>
-                <h3 className="text-xl font-black text-text">Working Hours</h3>
-              </div>
-              <div className="space-y-4">
-                {hours.map((h, i) => (
-                  <div key={i} className="flex justify-between items-center py-2.5 border-b border-gray-100 last:border-0">
-                    <span className="text-text font-medium">{h.day}</span>
-                    <span className={`text-sm font-bold ${h.time === 'Emergency Only' ? 'text-accent' : 'text-primary'}`}>
-                      {h.time}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 bg-accent/10 rounded-2xl p-4 flex items-center gap-3">
-                <Phone size={18} className="text-accent shrink-0" />
-                <span className="text-accent text-sm font-bold">Emergency services available 24/7</span>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-teal-700 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+                  <span>Prompt registration & friendly assistance</span>
+                </div>
               </div>
             </div>
-          </motion.div>
+
+            {/* Card 3: Waiting Lounge */}
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-lg transition-all group flex flex-col">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={waitingArea1Img}
+                  alt="Steffi Clinic Patient Waiting Lounge"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-primary shadow-xs flex items-center gap-1.5">
+                  <Users size={12} />
+                  <span>Waiting Lounge</span>
+                </span>
+              </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-primary transition-colors">
+                    Comfortable Patient Seating
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Spacious, calm waiting area with cushioned seating, clean air circulation, and direct clinic access.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-teal-700 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+                  <span>Relaxing and hygienic patient space</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Inpatient Suite */}
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-lg transition-all group flex flex-col">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={patientRoom2Img}
+                  alt="Steffi Clinic Inpatient Suite"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-primary shadow-xs flex items-center gap-1.5">
+                  <BedDouble size={12} />
+                  <span>5 AC Rooms</span>
+                </span>
+              </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-primary transition-colors">
+                    Private Recovery Suites
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Air-conditioned single rooms equipped with patient amenities, privacy, and 24/7 nursing supervision.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-teal-700 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+                  <span>Post-operative comfort & monitoring</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

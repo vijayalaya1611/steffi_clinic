@@ -1,6 +1,5 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { Toaster } from 'sonner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -8,13 +7,19 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Doctors from './pages/Doctors'
 import Contact from './pages/Contact'
-import Appointment from './pages/Appointment'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+    if (hash) {
+      const el = document.querySelector(hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        return
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname, hash])
   return null
 }
 
@@ -22,7 +27,6 @@ function App() {
   return (
     <div className="min-h-screen bg-bg-white flex flex-col justify-between">
       <ScrollToTop />
-      <Toaster position="top-center" richColors closeButton />
       <Navbar />
       <main className="flex-grow">
         <Routes>
@@ -31,7 +35,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/appointment" element={<Appointment />} />
+          <Route path="/appointment" element={<Navigate to="/contact" replace />} />
         </Routes>
       </main>
       <Footer />

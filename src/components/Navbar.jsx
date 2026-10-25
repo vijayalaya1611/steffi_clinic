@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HeartPulse, Menu, X, Phone, Clock, MapPin, Calendar, ArrowRight } from 'lucide-react'
+import { Menu, X, Phone, Clock, MapPin, ArrowRight } from 'lucide-react'
+import logo from '../assets/logo.jpeg'
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -39,7 +40,7 @@ function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center gap-4 sm:gap-6">
             <a
-              href="tel:+15551234567"
+              href="tel:+916379051789"
               className="flex items-center gap-2 text-white hover:text-primary-light transition-colors group"
             >
               <span className="relative flex h-2 w-2">
@@ -47,13 +48,13 @@ function Navbar() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <Phone size={13} className="text-emerald-400 group-hover:scale-110 transition-transform" />
-              <span className="font-semibold">24/7 Emergency:</span>
-              <span className="font-bold text-white tracking-wide">+1 (555) 123-4567</span>
+              <span className="font-semibold">24/7 Helpline:</span>
+              <span className="font-bold text-white tracking-wide">+91 6379051789</span>
             </a>
 
             <div className="hidden md:flex items-center gap-1.5 text-slate-400">
               <MapPin size={13} className="text-primary-light" />
-              <span>123 Healthcare Blvd, Medical District</span>
+              <span>Mayiladuthurai, Tamil Nadu</span>
             </div>
           </div>
 
@@ -72,20 +73,21 @@ function Navbar() {
 
       {/* Main Navigation Bar */}
       <div
-        className={`transition-all duration-300 ${
-          scrolled
+        className={`transition-all duration-300 ${scrolled
             ? 'bg-white/95 backdrop-blur-md shadow-md shadow-slate-900/5 border-b border-slate-200/80'
             : 'bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-xs'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Medical Clinic Logo */}
             <Link to="/" className="flex items-center gap-3.5 group">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center shadow-md shadow-primary/20 group-hover:shadow-lg group-hover:shadow-primary/30 group-hover:scale-105 transition-all duration-300">
-                  <HeartPulse className="text-white w-6 h-6 stroke-[2.2]" />
-                </div>
+              <div className="relative shrink-0">
+                <img
+                  src={logo}
+                  alt="Steffi Clinic Logo"
+                  className="w-12 h-12 rounded-2xl object-cover shadow-md shadow-primary/20 border border-slate-200/80 group-hover:scale-105 group-hover:shadow-lg transition-all duration-300"
+                />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-1">
@@ -93,7 +95,7 @@ function Navbar() {
                   <span className="text-2xl font-extrabold text-primary tracking-tight">Clinic</span>
                 </div>
                 <span className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">
-                  Medical & Wellness Center
+                  Specialised ENT & Surgical Care
                 </span>
               </div>
             </Link>
@@ -106,11 +108,10 @@ function Navbar() {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
-                      isActive
+                    className={`relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${isActive
                         ? 'text-primary'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-                    }`}
+                      }`}
                   >
                     {isActive && (
                       <motion.div
@@ -132,17 +133,16 @@ function Navbar() {
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-primary hover:bg-slate-50 transition-colors"
               >
                 <Phone size={14} className="text-primary" />
-                <span>(555) 123-4567</span>
+                <span>+91 6379051789</span>
               </a>
 
-              <Link to="/appointment">
+              <Link to="/contact">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-light text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/35 transition-all cursor-pointer"
                 >
-                  <Calendar size={16} />
-                  <span>Book Appointment</span>
+                  <span>Contact Us</span>
                   <ArrowRight size={14} className="opacity-80" />
                 </motion.button>
               </Link>
@@ -178,11 +178,10 @@ function Navbar() {
                     key={link.path}
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-                      isActive
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
                         ? 'text-primary bg-primary/10 font-bold'
                         : 'text-slate-700 hover:text-primary hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     <span>{link.name}</span>
                     {isActive && <ArrowRight size={16} className="text-primary" />}
@@ -192,17 +191,17 @@ function Navbar() {
 
               <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+916379051789"
                   className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
                 >
                   <Phone size={16} className="text-primary" />
-                  <span>Call Us: +1 (555) 123-4567</span>
+                  <span>Call Us: +91 6379051789</span>
                 </a>
 
-                <Link to="/appointment" onClick={() => setIsOpen(false)} className="block">
+                <Link to="/contact" onClick={() => setIsOpen(false)} className="block">
                   <button className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-light text-white py-3.5 rounded-xl text-sm font-bold shadow-md shadow-primary/20">
-                    <Calendar size={18} />
-                    <span>Book Appointment</span>
+                    <span>Contact Us</span>
+                    <ArrowRight size={16} />
                   </button>
                 </Link>
               </div>

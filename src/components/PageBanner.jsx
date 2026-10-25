@@ -175,12 +175,12 @@ function PageBanner({ title, highlight, breadcrumb, subtitle, badge, prismConfig
           <span className="text-slate-700 hidden sm:inline">•</span>
           <span className="flex items-center gap-2 text-slate-300">
             <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
-            Same-Day Appointments
+            Same-Day Consultations
           </span>
           <span className="text-slate-700 hidden sm:inline">•</span>
           <span className="flex items-center gap-2 text-slate-300">
             <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
-            Major Health Insurances Accepted
+            Modern Inpatient & Surgical Care
           </span>
         </motion.div>
       </div>

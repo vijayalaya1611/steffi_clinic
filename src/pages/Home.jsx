@@ -1,184 +1,232 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import CountUpNumber from '../components/CountUpNumber'
-import { toast } from 'sonner'
 import Prism from '../components/Prism'
+import HeroShowcase from '../components/HeroShowcase'
+import ClinicFacilities from '../components/ClinicFacilities'
+
+import operationRoomImg from '../assets/clinic/operation_room.webp'
+import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
 
 import {
-  HeartPulse, Stethoscope, Baby, Heart, FlaskConical, Syringe, Ambulance,
-  Award, Clock, ShieldCheck, Users, Phone, ArrowRight, CheckCircle2,
-  Star, Calendar, TrendingUp, UserCheck, Activity,
-  ChevronRight, Search
+  Stethoscope, Baby, Award, ShieldCheck, Users, Phone,
+  ArrowRight, CheckCircle2, Star, UserCheck, Activity,
+  ChevronRight, Wind, Moon, Volume2, Microscope, BedDouble
 } from 'lucide-react'
 
 const stats = [
-  { value: 15, suffix: '+', label: 'Years of Excellence', icon: Award, sub: 'Serving communities since 2009' },
-  { value: 50, suffix: '+', label: 'Medical Specialists', icon: Users, sub: 'Board-certified physicians' },
-  { value: 25000, suffix: '+', label: 'Patients Treated', icon: HeartPulse, sub: 'Trusted by families' },
-  { value: 99, suffix: '%', label: 'Positive Outcomes', icon: TrendingUp, sub: 'Verified satisfaction rate' }
+  { value: 5, suffix: '+', label: 'Specialty ENT Clinics', icon: Award, sub: 'Allergy, Paediatric, Snoring, Vertigo, Voice' },
+  { value: 3, suffix: '', label: 'Consultant Specialists', icon: Users, sub: 'Experienced M.S. (ENT) & D.L.O. Surgeons' },
+  { value: 5, suffix: ' AC', label: 'Single Inpatient Rooms', icon: BedDouble, sub: 'Private recovery & ventilator support' },
+  { value: 100, suffix: '%', label: 'CSSD Sterilization', icon: ShieldCheck, sub: 'Established clinical instrument safety' }
 ]
 
 const services = [
   {
-    id: 'general-medicine',
-    title: 'General & Family Medicine',
-    category: 'Primary Care',
-    desc: 'Comprehensive health assessments, preventive wellness plans, and chronic disease management for all ages.',
-    icon: Stethoscope,
-    badge: 'Popular',
-    procedures: ['Annual Physicals', 'Preventive Screenings', 'Chronic Disease Care'],
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop'
-  },
-  {
-    id: 'pediatrics',
-    title: 'Pediatric Care',
-    category: 'Child Health',
-    desc: 'Gentle, expert healthcare for infants, children, and teenagers in a friendly, supportive environment.',
-    icon: Baby,
-    badge: 'Specialized',
-    procedures: ['Newborn Care', 'Developmental Milestones', 'Child Immunizations'],
+    id: 'allergy-clinic',
+    title: 'Allergy Clinic',
+    category: 'Specialty Clinics',
+    desc: 'Assessment and management of allergic conditions affecting the nose, throat and upper respiratory tract.',
+    icon: Wind,
+    badge: 'Focused Care',
+    procedures: ['Allergic Rhinitis Evaluation', 'Upper Airway Sensitivity', 'Allergen Management'],
     image: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600&h=400&fit=crop'
   },
   {
-    id: 'womens-health',
-    title: "Women's Health & Maternity",
-    category: 'Specialized',
-    desc: 'Personalized gynecological care, prenatal care, fertility counseling, and postpartum support.',
-    icon: Heart,
-    badge: 'Dedicated',
-    procedures: ['Prenatal Care', 'Routine Gynecologic Exams', 'Hormonal Wellness'],
+    id: 'paediatric-ent',
+    title: 'Paediatric ENT Clinic',
+    category: 'Specialty Clinics',
+    desc: 'ENT services tailored specifically to the unique clinical needs of infants, children and adolescents.',
+    icon: Baby,
+    badge: 'Paediatric',
+    procedures: ['Childhood Ear Infections', 'Tonsils & Adenoids', 'Gentle Child Examination'],
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop'
+  },
+  {
+    id: 'sleep-snoring',
+    title: 'Sleep & Snoring Clinic',
+    category: 'Specialty Clinics',
+    desc: 'Evaluation of snoring and sleep-related breathing problems to identify airway obstruction and underlying causes.',
+    icon: Moon,
+    badge: 'Specialised',
+    procedures: ['Snoring Pattern Analysis', 'Airway Obstruction Evaluation', 'Sleep Breathing Pathways'],
+    image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&h=400&fit=crop'
+  },
+  {
+    id: 'vertigo-balance',
+    title: 'Vertigo & Balance Clinic',
+    category: 'Diagnostics',
+    desc: 'Assessment of dizziness, vertigo and balance disorders to help identify their underlying causes.',
+    icon: Activity,
+    badge: 'Vestibular',
+    procedures: ['Dizziness Diagnosis', 'Vestibular Balance Testing', 'Rehabilitation Support'],
     image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop'
   },
   {
-    id: 'laboratory',
-    title: 'Advanced Diagnostic Lab',
+    id: 'voice-swallowing',
+    title: 'Voice & Swallowing Clinic',
+    category: 'Specialty Clinics',
+    desc: 'Evaluation and management of problems affecting the voice, vocal cords and swallowing function.',
+    icon: Stethoscope,
+    badge: 'Clinical Review',
+    procedures: ['Voice Strain & Hoarseness', 'Laryngeal Examination', 'Swallowing Dysfunction'],
+    image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&h=400&fit=crop'
+  },
+  {
+    id: 'audiology-clinic',
+    title: 'Audiology & Hearing Assessment',
     category: 'Diagnostics',
-    desc: 'State-of-the-art pathology, fast-turnaround blood tests, and high-precision diagnostic imaging.',
-    icon: FlaskConical,
-    badge: 'Fast Results',
-    procedures: ['Comprehensive Blood Panels', 'Rapid Pathology', 'Same-Day Reports'],
+    desc: 'Diagnostic audiological services including Pure Tone Audiometry and psychoacoustic testing.',
+    icon: Volume2,
+    badge: 'Audiology',
+    procedures: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic Testing', 'Hearing Assessment & Care'],
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop'
+  },
+  {
+    id: 'laboratory-services',
+    title: 'Laboratory Services & Packages',
+    category: 'Diagnostics',
+    desc: 'Essential investigations at one location supporting clinical diagnosis and health monitoring.',
+    icon: Microscope,
+    badge: 'Diagnostic Lab',
+    procedures: ['Haematology, Biochemistry, Serology', 'Endocrinology, Microbiology, Cultures', 'Cardiac & Diabetic Health Packages'],
     image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&h=400&fit=crop'
   },
   {
-    id: 'vaccinations',
-    title: 'Immunizations & Vaccines',
-    category: 'Preventive',
-    desc: 'Full CDC-compliant adult, travel, and pediatric vaccination regimens administered with gentle care.',
-    icon: Syringe,
-    badge: 'All Ages',
-    procedures: ['Seasonal Flu Shots', 'Travel Vaccinations', 'Booster Doses'],
-    image: 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=600&h=400&fit=crop'
+    id: 'ent-surgeries',
+    title: 'ENT Surgeries & Laminar-Flow OT',
+    category: 'Surgical & Inpatient',
+    desc: 'Advanced surgical complex with laminar-flow OT, operating microscopes and endoscopic systems.',
+    icon: ShieldCheck,
+    badge: 'Surgical Suite',
+    procedures: ['Adenotonsillectomy', 'Functional Endoscopic Sinus Surgery (FESS)', 'Mastoid Exploration Surgery'],
+    image: operationRoomImg
   },
   {
-    id: 'emergency',
-    title: '24/7 Urgent Medical Triage',
-    category: 'Emergency',
-    desc: 'Rapid medical response for acute conditions, minor trauma, injuries, and sudden illnesses.',
-    icon: Ambulance,
-    badge: 'Immediate Care',
-    procedures: ['Minor Trauma & Sutures', 'Acute Infection Care', 'Rapid Stabilization'],
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop'
+    id: 'inpatient-facilities',
+    title: 'Inpatient Care & Recovery',
+    category: 'Surgical & Inpatient',
+    desc: 'Five air-conditioned single rooms providing privacy and comfort with dedicated recovery facility.',
+    icon: BedDouble,
+    badge: '5 AC Rooms',
+    procedures: ['5 AC Single Patient Rooms', 'Dedicated Recovery Room', 'Ventilator-Supported Facility'],
+    image: patientRoom2Img
   }
 ]
 
 const featuredDoctors = [
   {
-    name: 'Dr. Sarah Johnson, MD',
-    specialty: 'Internal Medicine & Primary Care',
-    experience: '15 Years Experience',
-    education: 'Harvard Medical School',
-    rating: 4.9,
-    reviews: 320,
-    availability: 'Available Today',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=600&fit=crop'
+    name: 'Dr. R. S. Arivazhagan',
+    degrees: 'M.B.B.S., D.L.O.',
+    specialty: 'Consultant ENT Specialist',
+    experience: 'Experienced ENT Specialist',
+    education: 'M.B.B.S., D.L.O.',
+    focus: 'Allergy Clinic, Upper Airway Assessment & Diagnostic Endoscopy',
+    rating: 5.0,
+    reviews: 240,
+    availability: 'Available for Consultation',
+    initials: 'RSA',
+    badge: 'ENT Specialist',
+    gradient: 'from-slate-900 via-teal-950 to-slate-900',
+    accent: 'from-teal-500 to-emerald-400'
   },
   {
-    name: 'Dr. Michael Chen, MD',
-    specialty: 'Pediatrics & Adolescent Care',
-    experience: '12 Years Experience',
-    education: 'Johns Hopkins University',
-    rating: 4.8,
-    reviews: 280,
-    availability: 'Available Tomorrow',
-    image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&h=600&fit=crop'
+    name: 'Dr. K. Pradeep',
+    degrees: 'M.B.B.S., M.S. (ENT)',
+    specialty: 'Consultant ENT Surgeon',
+    experience: 'Consultant ENT Surgeon',
+    education: 'M.B.B.S., M.S. (ENT)',
+    focus: 'Surgical Procedures, Sleep & Snoring, Vertigo Disorders',
+    rating: 5.0,
+    reviews: 195,
+    availability: 'Available for Consultation',
+    initials: 'KP',
+    badge: 'ENT Surgeon',
+    gradient: 'from-slate-900 via-primary-dark/40 to-slate-900',
+    accent: 'from-cyan-500 to-teal-400'
   },
   {
-    name: 'Dr. Emily Rodriguez, MD',
-    specialty: 'Obstetrics & Gynecology',
-    experience: '10 Years Experience',
-    education: 'Stanford University',
-    rating: 4.9,
-    reviews: 410,
-    availability: 'Available Today',
-    image: 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=600&h=600&fit=crop'
+    name: 'Dr. A. Steffi',
+    degrees: 'M.B.B.S., M.S. (ENT)',
+    specialty: 'Consultant ENT Surgeon',
+    experience: 'Specialised ENT Surgeon',
+    education: 'M.B.B.S., M.S. (ENT)',
+    focus: 'General ENT, Endoscopic Sinus Evaluation & Inpatient Care',
+    rating: 5.0,
+    reviews: 180,
+    availability: 'Consultant on Duty',
+    initials: 'AS',
+    badge: 'Lead ENT Surgeon',
+    gradient: 'from-slate-900 via-teal-900/40 to-slate-900',
+    accent: 'from-emerald-500 to-teal-400'
   }
 ]
 
 const features = [
   {
+    icon: Stethoscope,
+    title: 'Focused ENT Expertise',
+    desc: 'Dedicated services covering a wide range of ear, nose and throat conditions with accurate assessment.'
+  },
+  {
     icon: ShieldCheck,
-    title: 'Board-Certified Specialists',
-    desc: 'Over 50 extensively trained doctors and surgeons maintaining the highest clinical standards.'
+    title: 'Specialised Clinics',
+    desc: 'Focused care for allergy, paediatric ENT, sleep and snoring, vertigo, and voice and swallowing disorders.'
   },
   {
-    icon: Clock,
-    title: 'Zero-Wait Same-Day Care',
-    desc: 'Convenient appointment scheduling with minimal waiting times and 24/7 urgent access.'
+    icon: Volume2,
+    title: 'Audiology & Diagnostics',
+    desc: 'Hearing assessment (PTA, psychoacoustics) and laboratory investigations to support clinical evaluation.'
   },
   {
-    icon: FlaskConical,
-    title: 'Modern Diagnostic Center',
-    desc: 'In-house diagnostic laboratory and imaging technology delivering same-day accurate results.'
+    icon: Microscope,
+    title: 'Surgical Infrastructure',
+    desc: 'State-of-the-art laminar-flow operation theatre, operating microscopes and endoscopic systems.'
   },
   {
-    icon: UserCheck,
-    title: 'Patient-First Experience',
-    desc: 'Personalized treatment plans with a 99% patient satisfaction and recovery track record.'
+    icon: BedDouble,
+    title: 'Inpatient Care & Recovery',
+    desc: 'Five air-conditioned single rooms providing privacy and comfort, with a dedicated recovery facility.'
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Sterilization Standards (CSSD)',
+    desc: 'A dedicated Central Sterile Services Department supporting the safe preparation of instruments for patient care.'
   }
 ]
 
 const testimonials = [
   {
-    name: 'Senthil Nathan & Kavitha',
-    role: 'Family Medicine & Diabetes Care • Chennai',
-    text: 'Steffi Clinic has completely changed how our family approaches healthcare. The doctors listen patiently without any rush, thoroughly explain diagnoses and test reports, and provide compassionate treatment plans.',
+    name: 'Patient Review • Nasal & Sinus Care',
+    role: 'FESS & Allergic Rhinitis Management',
+    text: 'Steffi Clinic provided accurate assessment and relief for my chronic sinus issues. The doctors explained the findings thoroughly and the care was compassionate.',
     rating: 5,
-    department: 'General Medicine',
+    department: 'Sinus & Allergy Care',
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop'
   },
   {
-    name: 'Priya Natarajan',
-    role: 'Pediatric Care Parent • Coimbatore',
-    text: 'The pediatric team at Steffi Clinic is exceptional. My 4-year-old daughter used to be terrified of clinic visits, but their gentle, friendly approach and warm care made vaccination completely tear-free.',
+    name: 'Parent Review • Paediatric ENT',
+    role: 'Paediatric Ear Care & Adenotonsillectomy',
+    text: 'The paediatric ENT team made my child feel completely relaxed. From diagnosis to surgery and recovery in their AC single room, the staff was caring and attentive.',
     rating: 5,
-    department: 'Pediatrics',
+    department: 'Paediatric ENT Clinic',
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop'
   },
   {
-    name: 'Anandhakrishnan R.',
-    role: 'Senior Cardiac & Preventive Health • Madurai',
-    text: 'From master health checkups to cardiac monitoring, the doctors and nursing staff at Steffi Clinic provide first-class service. Clear explanations, prompt lab reports, and genuine respect for senior citizens.',
+    name: 'Patient Review • Vertigo & Balance',
+    role: 'Vestibular Evaluation & Audiology',
+    text: 'After months of recurrent dizziness, the vertigo assessment and audiological testing at Steffi Clinic accurately identified the root cause and helped me recover.',
     rating: 5,
-    department: 'Cardiology',
+    department: 'Vertigo & Balance Clinic',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop'
   }
 ]
 
 function Home() {
-  const navigate = useNavigate()
-  const [selectedDept, setSelectedDept] = useState('General Medicine')
-  const [selectedDoctor, setSelectedDoctor] = useState('Any Available Specialist')
-  const [selectedDate, setSelectedDate] = useState('Today')
   const [activeCategory, setActiveCategory] = useState('All')
   const [statsRef, statsInView] = useInView({ triggerOnce: true, threshold: 0.25 })
-
-  const handleQuickBook = (e) => {
-    e.preventDefault()
-    toast.success(`Booking consultation with ${selectedDept}...`, { duration: 2500 })
-    navigate('/appointment')
-  }
 
   const filteredServices = activeCategory === 'All'
     ? services
@@ -223,11 +271,10 @@ function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
-                <span>Top-Rated Healthcare & Medical Center 2026</span>
+                <span>Specialised Ear, Nose & Throat Center</span>
                 <span className="text-slate-300">|</span>
-                <span className="text-slate-600 flex items-center gap-1">
-                  <Star size={12} className="text-amber-400 fill-amber-400" />
-                  4.9 (12k+ reviews)
+                <span className="text-slate-600 font-medium">
+                  Advanced Diagnostics & Surgical Care
                 </span>
               </motion.div>
 
@@ -238,11 +285,10 @@ function Home() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12] mb-6"
               >
-                Compassionate Care,{' '}
+                Expert ENT Care,{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-accent">
-                  Advanced Medicine
-                </span>{' '}
-                for Your Whole Family.
+                  Thoughtfully Delivered.
+                </span>
               </motion.h1>
 
               {/* Subtitle */}
@@ -252,7 +298,7 @@ function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl leading-relaxed"
               >
-                Experience world-class healthcare with board-certified physicians, state-of-the-art diagnostic technology, and same-day consultations tailored to your comfort and wellbeing.
+                Steffi Clinic provides specialised care for conditions affecting the ear, nose and throat, supported by dedicated specialty clinics, audiology services, diagnostic investigations and advanced surgical facilities.
               </motion.p>
 
               {/* CTAs */}
@@ -262,14 +308,13 @@ function Home() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex flex-wrap items-center gap-4 mb-10"
               >
-                <Link to="/appointment">
+                <Link to="/contact">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="inline-flex items-center gap-2.5 bg-gradient-to-r from-primary to-primary-light text-white px-7 py-3.5 rounded-xl font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 transition-all text-base cursor-pointer"
                   >
-                    <Calendar size={18} />
-                    <span>Book an Appointment</span>
+                    <span>Contact Our Clinic</span>
                     <ArrowRight size={16} />
                   </motion.button>
                 </Link>
@@ -281,218 +326,54 @@ function Home() {
                     className="inline-flex items-center gap-2 bg-white text-slate-700 px-6 py-3.5 rounded-xl font-bold border border-slate-200 hover:border-primary/40 hover:bg-slate-50 shadow-xs transition-all text-base cursor-pointer"
                   >
                     <UserCheck size={18} className="text-primary" />
-                    <span>Meet Our Specialists</span>
+                    <span>Meet Our ENT Specialists</span>
                   </motion.button>
                 </Link>
 
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+916379051789"
                   className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-primary transition-colors py-2 px-3"
                 >
                   <Phone size={16} className="text-emerald-600" />
-                  <span>Call: (555) 123-4567</span>
+                  <span>Call: +91 6379051789</span>
                 </a>
               </motion.div>
 
-              {/* Social Proof & Reassurance */}
+              {/* Pillars Pill Row */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-6"
+                className="pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-600"
               >
-                {/* Overlapping Doctor/Patient Avatars */}
-                <div className="flex items-center">
-                  <div className="flex -space-x-2.5 overflow-hidden">
-                    <img
-                      className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover shadow-xs"
-                      src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop"
-                      alt="Doctor"
-                    />
-                    <img
-                      className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover shadow-xs"
-                      src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=100&h=100&fit=crop"
-                      alt="Doctor"
-                    />
-                    <img
-                      className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover shadow-xs"
-                      src="https://images.unsplash.com/photo-1594824813583-149fd71b058c?w=100&h=100&fit=crop"
-                      alt="Doctor"
-                    />
-                    <img
-                      className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover shadow-xs"
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
-                      alt="Patient"
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="flex items-center text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={14} className="fill-amber-400" />
-                      ))}
-                    </div>
-                    <p className="text-xs font-bold text-slate-800">
-                      4.9/5 <span className="font-normal text-slate-500">(12,000+ happy patients)</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Key Benefits */}
-                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
-                  <span className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">
-                    <CheckCircle2 size={13} className="text-emerald-600" />
-                    Same-Day Visits
-                  </span>
-                  <span className="flex items-center gap-1.5 text-primary-dark bg-primary-50 px-2.5 py-1 rounded-md">
-                    <CheckCircle2 size={13} className="text-primary" />
-                    50+ Specialists
-                  </span>
-                  <span className="flex items-center gap-1.5 text-sky-800 bg-sky-50 px-2.5 py-1 rounded-md">
-                    <CheckCircle2 size={13} className="text-sky-600" />
-                    Insurance Accepted
-                  </span>
-                </div>
+                <span className="flex items-center gap-1.5 text-teal-800 bg-teal-50 px-3 py-1.5 rounded-lg border border-teal-200/60">
+                  <CheckCircle2 size={13} className="text-teal-600" />
+                  Specialised ENT Care
+                </span>
+                <span className="flex items-center gap-1.5 text-primary-dark bg-primary-50 px-3 py-1.5 rounded-lg border border-primary/20">
+                  <CheckCircle2 size={13} className="text-primary" />
+                  Advanced Diagnostics
+                </span>
+                <span className="flex items-center gap-1.5 text-sky-800 bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200/60">
+                  <CheckCircle2 size={13} className="text-sky-600" />
+                  Surgical Expertise
+                </span>
+                <span className="flex items-center gap-1.5 text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200/60">
+                  <CheckCircle2 size={13} className="text-emerald-600" />
+                  Comfortable Inpatient Facilities
+                </span>
               </motion.div>
             </div>
 
-            {/* Right Visual Composition Column */}
-            <div className="lg:col-span-5 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="relative mx-auto max-w-md lg:max-w-none"
-              >
-                {/* Main Hero Doctor Photo Card */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border-4 border-white bg-white">
-                  <img
-                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&h=950&fit=crop"
-                    alt="Doctor with patient at Steffi Clinic"
-                    className="w-full h-[460px] sm:h-[500px] object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-5 left-5 right-5 text-white">
-                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold text-white mb-1.5 border border-white/30">
-                      Lead Clinical Team
-                    </span>
-                    <h3 className="text-lg font-bold">Personalized Medical Attention</h3>
-                    <p className="text-xs text-white/80">Every patient receives dedicated care and attentive listening.</p>
-                  </div>
-                </div>
-
-                {/* Floating Badge 1: 24/7 Support (Top Right) */}
-                <motion.div
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 z-20"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                    <ShieldCheck size={22} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
-                      <span className="text-xs font-bold text-slate-900">24/7 Available</span>
-                    </div>
-                    <p className="text-[11px] text-slate-500">Emergency & Urgent Care</p>
-                  </div>
-                </motion.div>
-
-                {/* Floating Badge 2: Recovery Outcome (Bottom Left) */}
-                <motion.div
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                  className="absolute -bottom-6 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3.5 z-20"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-light text-white flex items-center justify-center shadow-md shadow-primary/20">
-                    <HeartPulse size={24} />
-                  </div>
-                  <div>
-                    <div className="text-xl font-extrabold text-slate-900 leading-none mb-1">
-                      99.4%
-                    </div>
-                    <p className="text-xs font-semibold text-slate-600">Patient Recovery Rate</p>
-                    <p className="text-[10px] text-emerald-600 font-medium">★ Top-Tier Clinical Care</p>
-                  </div>
-                </motion.div>
-              </motion.div>
+            {/* Right Visual Authentic Hospital Showcase Column */}
+            <div className="lg:col-span-5 relative flex items-center justify-center">
+              <HeroShowcase />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== QUICK APPOINTMENT & SPECIALTY FINDER BAR ===== */}
-      <section className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10">
-        <div className="bg-white rounded-2xl shadow-xl shadow-slate-900/8 border border-slate-200/90 p-5 sm:p-6 lg:p-7">
-          <div className="flex items-center gap-2.5 mb-4 text-xs font-bold uppercase tracking-wider text-primary">
-            <Search size={14} />
-            <span>Fast Appointment Scheduler & Specialist Finder</span>
-          </div>
 
-          <form onSubmit={handleQuickBook} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Medical Specialty
-              </label>
-              <select
-                value={selectedDept}
-                onChange={(e) => setSelectedDept(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
-              >
-                <option value="General Medicine">General & Family Medicine</option>
-                <option value="Pediatrics">Pediatrics & Child Care</option>
-                <option value="Women's Health">Women's Health & Gynecology</option>
-                <option value="Cardiology">Cardiology & Heart Health</option>
-                <option value="Laboratory">Diagnostic Pathology & Lab</option>
-                <option value="Urgent Care">Urgent Medical Triage</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Physician Preference
-              </label>
-              <select
-                value={selectedDoctor}
-                onChange={(e) => setSelectedDoctor(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
-              >
-                <option value="Any Available Specialist">Any Available Specialist</option>
-                <option value="Dr. Sarah Johnson, MD">Dr. Sarah Johnson, MD (Primary)</option>
-                <option value="Dr. Michael Chen, MD">Dr. Michael Chen, MD (Pediatrics)</option>
-                <option value="Dr. Emily Rodriguez, MD">Dr. Emily Rodriguez, MD (OB/GYN)</option>
-                <option value="Dr. David Kim, MD">Dr. David Kim, MD (Cardiology)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Preferred Day
-              </label>
-              <select
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
-              >
-                <option value="Today">Today (Same-Day Urgent Slot)</option>
-                <option value="Tomorrow">Tomorrow</option>
-                <option value="This Week">Within This Week</option>
-                <option value="Next Week">Next Week</option>
-              </select>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-primary to-primary-light hover:from-primary-dark hover:to-primary text-white py-3 px-5 rounded-xl font-bold shadow-md shadow-primary/25 hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Calendar size={18} />
-                <span>Check Availability</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
 
       {/* ===== STATS & CREDIBILITY STRIP ===== */}
       <section className="py-20 bg-slate-50/70 border-b border-slate-200/60" ref={statsRef}>
@@ -533,26 +414,25 @@ function Home() {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="inline-block px-3.5 py-1 rounded-full bg-teal-50 text-primary font-bold text-xs uppercase tracking-wider mb-3">
-              Clinical Specialties
+              Specialised ENT Care
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-              Comprehensive Care Tailored to Your Family
+              Comprehensive ENT & Clinical Services
             </h2>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              From routine wellness checkups to specialized acute treatments, our multi-disciplinary departments deliver evidence-based clinical excellence.
+              From focused specialty evaluations to advanced diagnostic audiology and microscopic surgical procedures, our clinic provides complete ear, nose and throat care.
             </p>
 
             {/* Specialty Filter Pills */}
             <div className="flex flex-wrap justify-center gap-2 mt-8">
-              {['All', 'Primary Care', 'Child Health', 'Specialized', 'Diagnostics', 'Emergency'].map((cat) => (
+              {['All', 'Specialty Clinics', 'Diagnostics', 'Surgical & Inpatient'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                    activeCategory === cat
-                      ? 'bg-primary text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
+                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${activeCategory === cat
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
                 >
                   {cat}
                 </button>
@@ -614,10 +494,10 @@ function Home() {
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <Link
-                      to="/appointment"
+                      to="/services"
                       className="text-sm font-bold text-primary hover:text-primary-dark inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all"
                     >
-                      <span>Book Consultation</span>
+                      <span>Explore Service</span>
                       <ArrowRight size={14} />
                     </Link>
                     <Link
@@ -635,7 +515,7 @@ function Home() {
           <div className="text-center mt-12">
             <Link to="/services">
               <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-primary bg-primary-50 hover:bg-primary-100 transition-colors cursor-pointer">
-                <span>View All 12 Medical Departments</span>
+                <span>View All ENT Services & Facilities</span>
                 <ChevronRight size={16} />
               </button>
             </Link>
@@ -650,13 +530,13 @@ function Home() {
             {/* Left Header */}
             <div className="lg:col-span-5">
               <span className="inline-block px-3.5 py-1 rounded-full bg-teal-100/80 text-primary-dark font-bold text-xs uppercase tracking-wider mb-3">
-                Why Patients Trust Us
+                Why Steffi Clinic?
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
-                Setting the Standard in Modern Healthcare
+                Expert ENT Care, Thoughtfully Delivered
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-8">
-                At Steffi Clinic, medical quality is defined by accurate diagnostics, empathetic bedside manner, and modern facilities designed to reduce patient anxiety and deliver optimal health outcomes.
+                Every patient is different. At Steffi Clinic, we begin by understanding your symptoms and concerns, followed by appropriate examination and investigations. From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
               </p>
 
               <div className="space-y-4">
@@ -665,8 +545,8 @@ function Home() {
                     <CheckCircle2 size={14} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Patient-First Atmosphere</h4>
-                    <p className="text-xs text-slate-500">Unhurried consultations where doctors listen and address all questions.</p>
+                    <h4 className="text-sm font-bold text-slate-900">Care That Begins With Listening</h4>
+                    <p className="text-xs text-slate-500">Thorough consultations where our team discusses available options suited to each patient's condition.</p>
                   </div>
                 </div>
 
@@ -675,8 +555,8 @@ function Home() {
                     <CheckCircle2 size={14} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Direct Doctor Follow-Ups</h4>
-                    <p className="text-xs text-slate-500">Secure digital messaging and rapid access to lab results and test reviews.</p>
+                    <h4 className="text-sm font-bold text-slate-900">Integrated Audiology & Laboratory</h4>
+                    <p className="text-xs text-slate-500">Pure tone audiometry and comprehensive clinical pathology tests under one roof for timely diagnosis.</p>
                   </div>
                 </div>
 
@@ -685,8 +565,8 @@ function Home() {
                     <CheckCircle2 size={14} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Insurance & Financial Transparency</h4>
-                    <p className="text-xs text-slate-500">In-network with all major health insurance providers with clear billing.</p>
+                    <h4 className="text-sm font-bold text-slate-900">Advanced Surgical & Inpatient Facilities</h4>
+                    <p className="text-xs text-slate-500">Laminar-flow OT, CSSD sterilization, and 5 air-conditioned single rooms with dedicated recovery.</p>
                   </div>
                 </div>
               </div>
@@ -711,23 +591,26 @@ function Home() {
         </div>
       </section>
 
+      {/* ===== CLINICAL FACILITIES & INFRASTRUCTURE TOUR ===== */}
+      <ClinicFacilities />
+
       {/* ===== FEATURED DOCTORS PREVIEW ===== */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
             <div>
               <span className="inline-block px-3.5 py-1 rounded-full bg-teal-50 text-primary font-bold text-xs uppercase tracking-wider mb-3">
-                Expert Team
+                Our Consultants
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                Meet Our Lead Physicians
+                Experienced ENT Specialists
               </h2>
             </div>
             <Link
               to="/doctors"
               className="mt-4 md:mt-0 inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-dark"
             >
-              <span>View All 50+ Medical Staff</span>
+              <span>View All Consultants</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -736,38 +619,60 @@ function Home() {
             {featuredDoctors.map((doc, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
+                className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
               >
-                <div className="relative h-72 overflow-hidden bg-slate-100">
-                  <img
-                    src={doc.image}
-                    alt={doc.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <span className="absolute top-3 right-3 bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-3 py-1 rounded-full text-[11px] font-bold shadow-xs">
-                    {doc.availability}
-                  </span>
+                {/* Doctor Card Top Header with Monogram */}
+                <div className={`relative bg-gradient-to-br ${doc.gradient} text-white p-7 overflow-hidden border-b border-slate-800`}>
+                  <div className="flex items-center justify-between gap-2 mb-5">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/25">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      {doc.availability}
+                    </span>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-teal-200 bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">
+                      {doc.badge}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-tr ${doc.accent} text-white flex items-center justify-center font-black text-xl shadow-lg shadow-slate-950/40 shrink-0 border border-white/25 ring-4 ring-white/10`}>
+                      {doc.initials}
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-bold tracking-tight text-white mb-0.5 group-hover:text-teal-200 transition-colors truncate">
+                        {doc.name}
+                      </h3>
+                      <p className="text-teal-300 text-xs font-semibold mb-1">
+                        {doc.specialty}
+                      </p>
+                      <span className="inline-block px-2 py-0.5 rounded bg-white/15 text-slate-200 text-[11px] font-bold border border-white/10">
+                        {doc.degrees}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="p-6 flex-1 flex flex-col justify-between">
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-teal-600">{doc.education}</span>
-                      <span className="flex items-center gap-1 text-xs font-bold text-slate-800">
+                    <div className="flex items-center justify-between mb-3 text-xs">
+                      <span className="font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md">
+                        {doc.experience}
+                      </span>
+                      <span className="flex items-center gap-1 font-bold text-slate-700">
                         <Star size={13} className="text-amber-400 fill-amber-400" />
                         {doc.rating} ({doc.reviews})
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-1">{doc.name}</h3>
-                    <p className="text-xs font-medium text-slate-500 mb-4">{doc.specialty}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed mb-2">
+                      <strong className="text-slate-900 block mb-0.5">Clinical Focus:</strong>
+                      {doc.focus}
+                    </p>
                   </div>
 
                   <div className="pt-4 border-t border-slate-100">
-                    <Link to="/appointment">
-                      <button className="w-full py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-primary hover:text-white text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                        <Calendar size={14} />
-                        <span>Schedule with {doc.name.split(' ')[1]}</span>
+                    <Link to="/contact">
+                      <button className="w-full py-3 px-4 rounded-xl bg-slate-50 hover:bg-primary hover:text-white text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer border border-slate-200/80 hover:border-transparent">
+                        <UserCheck size={14} />
+                        <span>Consult with {doc.name}</span>
                       </button>
                     </Link>
                   </div>
@@ -786,10 +691,10 @@ function Home() {
               Patient Experiences
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-              Trusted by Over 25,000 Families
+              Trusted ENT Care For Every Patient
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
-              Real stories from individuals and parents who depend on Steffi Clinic for dependable healthcare.
+              Real experiences from patients receiving specialized care across our ENT specialty clinics, diagnostics, and surgical facilities.
             </p>
           </div>
 
@@ -825,7 +730,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ===== URGENT CARE & APPOINTMENT CALL TO ACTION WITH WEBGL PRISM ===== */}
+      {/* ===== URGENT CARE & CONTACT CALL TO ACTION WITH WEBGL PRISM ===== */}
       <section className="py-24 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800">
         {/* WebGL Prism Motion Shader */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -849,36 +754,35 @@ function Home() {
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-teal-200 mb-6">
             <Activity size={14} className="text-emerald-400" />
-            <span>Accepting New Patients & Same-Day Emergency Consultations</span>
+            <span>Specialised ENT Care • Advanced Diagnostics • Surgical Expertise</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
-            Your Health Is Our Priority. Schedule a Visit Today.
+            Specialised ENT Care. Trusted Expertise.
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Take proactive care of your wellbeing. Book online in 60 seconds or speak directly with our clinical triage nurse for urgent medical concerns.
+            From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/appointment">
+            <Link to="/contact">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-primary to-primary-light text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-primary/30 hover:shadow-2xl transition-all text-base cursor-pointer"
               >
-                <Calendar size={20} />
-                <span>Book an Appointment Online</span>
+                <span>Contact Steffi Clinic</span>
                 <ArrowRight size={18} />
               </motion.button>
             </Link>
 
             <a
-              href="tel:+15551234567"
+              href="tel:+916379051789"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white/10 hover:bg-white/20 text-white px-7 py-4 rounded-xl font-bold border border-white/20 transition-all text-base backdrop-blur-md"
             >
               <Phone size={18} className="text-emerald-400" />
-              <span>Emergency Call: +1 (555) 123-4567</span>
+              <span>Reception: +91 6379051789</span>
             </a>
           </div>
         </div>
