@@ -178,7 +178,7 @@ function Footer() {
       {/* Copyright */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-white/40">
-          <p>© {new Date().getFullYear()} Steffi Clinic. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} <a href="https://racs.info" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors font-medium">racs.info</a>. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white/60 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white/60 transition-colors">Terms of Service</a>
