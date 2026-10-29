@@ -36,7 +36,7 @@ const values = [
   {
     icon: Heart,
     title: 'Inpatient Privacy & Comfort',
-    desc: 'Five air-conditioned single rooms, dedicated recovery room, and ventilator-supported monitoring.',
+    desc: 'AC rooms, Non-AC rooms and general wards, with a dedicated recovery room and ventilator-supported monitoring.',
     color: 'from-emerald-500 to-teal-600'
   },
 ]
@@ -93,7 +93,7 @@ const storyPreviews = [
   },
   {
     id: 'patients_room',
-    title: '5 AC Single Inpatient Rooms',
+    title: 'AC, Non-AC & General Inpatient Rooms',
     badge: 'Private Rooms',
     desc: 'Dedicated single rooms offering peaceful recovery, privacy, and clinical monitoring.',
     image: patientsRoomImg,

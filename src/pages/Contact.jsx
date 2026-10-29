@@ -220,7 +220,7 @@ function Contact() {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <BedDouble size={16} className="text-teal-600 shrink-0 mt-0.5" />
-                    <span><strong>Inpatient & OT:</strong> Laminar-flow Operation Theatre, CSSD, and 5 AC Single Rooms.</span>
+                    <span><strong>Inpatient &amp; OT:</strong> Laminar-flow Operation Theatre, CSSD, and AC, Non-AC &amp; General Ward inpatient rooms.</span>
                   </div>
                 </div>
 
@@ -359,7 +359,7 @@ function Contact() {
                 />
                 <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-primary shadow-xs flex items-center gap-1.5">
                   <BedDouble size={12} />
-                  <span>5 AC Rooms</span>
+                  <span>Inpatient Rooms</span>
                 </span>
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between">

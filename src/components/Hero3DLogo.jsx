@@ -193,7 +193,7 @@ export default function Hero3DLogo() {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-xs font-bold text-slate-900">5 AC Single Rooms</span>
+                <span className="text-xs font-bold text-slate-900">AC, Non-AC &amp; General</span>
               </div>
               <p className="text-[11px] text-slate-500">Inpatient Recovery</p>
             </div>

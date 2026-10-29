@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
-import CountUpNumber from '../components/CountUpNumber'
 import Prism from '../components/Prism'
 import HeroShowcase from '../components/HeroShowcase'
 import ClinicFacilities from '../components/ClinicFacilities'
@@ -18,10 +17,10 @@ import {
 } from 'lucide-react'
 
 const stats = [
-  { value: 5, suffix: '+', label: 'Specialty ENT Clinics', icon: Award, sub: 'Allergy, Paediatric, Snoring, Vertigo, Voice' },
-  { value: 3, suffix: '', label: 'Consultant Specialists', icon: Users, sub: 'Experienced M.S. (ENT)' },
-  { value: 5, suffix: ' AC', label: 'Single Inpatient Rooms', icon: BedDouble, sub: 'Private recovery & ventilator support' },
-  { value: 100, suffix: '%', label: 'CSSD Sterilization', icon: ShieldCheck, sub: 'Established clinical instrument safety' }
+  { label: 'Specialty ENT Clinics', icon: Award, sub: 'Allergy, Paediatric, Snoring, Vertigo, Voice' },
+  { label: 'Consultant Specialists', icon: Users, sub: 'Experienced M.S. (ENT)' },
+  { label: 'Inpatient Rooms Available', icon: BedDouble, sub: 'AC, Non-AC & General Ward options' },
+  { label: 'CSSD Sterilization', icon: ShieldCheck, sub: 'Established clinical instrument safety' }
 ]
 
 const services = [
@@ -109,10 +108,10 @@ const services = [
     id: 'inpatient-facilities',
     title: 'Inpatient Care & Recovery',
     category: 'Surgical & Inpatient',
-    desc: 'Five air-conditioned single rooms providing privacy and comfort with dedicated recovery facility.',
+    desc: 'Inpatient accommodation available across AC rooms, Non-AC rooms and general wards, with a dedicated recovery facility.',
     icon: BedDouble,
-    badge: '5 AC Rooms',
-    procedures: ['5 AC Single Patient Rooms', 'Dedicated Recovery Room', 'Ventilator-Supported Facility'],
+    badge: 'Inpatient Care',
+    procedures: ['AC & Non-AC Single Rooms', 'General Ward Facility', 'Ventilator-Supported Recovery'],
     image: patientRoom2Img
   }
 ]
@@ -376,33 +375,27 @@ function Home() {
 
 
 
-      {/* ===== STATS & CREDIBILITY STRIP ===== */}
+      {/* ===== HIGHLIGHTS & CREDIBILITY STRIP ===== */}
       <section className="py-20 bg-slate-50/70 border-b border-slate-200/60" ref={statsRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {stats.map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all group"
+                className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all group flex flex-col justify-start"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                   <stat.icon size={24} />
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-1">
-                  {statsInView && (
-                    <CountUpNumber
-                      end={stat.value}
-                      duration={2.5}
-                      suffix={stat.suffix}
-                      separator=","
-                    />
-                  )}
-                </div>
-                <h4 className="text-sm font-bold text-slate-800 mb-0.5">{stat.label}</h4>
-                <p className="text-xs text-slate-500 font-medium">{stat.sub}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mb-2">
+                  {stat.label}
+                </h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  {stat.sub}
+                </p>
               </motion.div>
             ))}
           </div>
