@@ -13,6 +13,7 @@ import { useScrollReveal } from '../utils/scrollReveal'
 
 import operationRoomImg from '../assets/clinic/operation_room.webp'
 import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
+import audiologyClinicImg from '../assets/clinic/audiology_clinic.png'
 
 const categories = [
   'All Services',
@@ -74,7 +75,7 @@ const services = [
     title: 'Audiology Clinic',
     desc: 'Assessment and management of hearing-related disorders assisting in diagnosis and guiding appropriate rehabilitation.',
     features: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic testing', 'Comprehensive hearing assessments', 'Hearing rehabilitation advice'],
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop',
+    image: audiologyClinicImg,
     duration: 'Diagnostic'
   },
   {

@@ -9,6 +9,7 @@ import ClinicFacilities from '../components/ClinicFacilities'
 
 import operationRoomImg from '../assets/clinic/operation_room.webp'
 import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
+import audiologyClinicImg from '../assets/clinic/audiology_clinic.png'
 
 import {
   Stethoscope, Baby, Award, ShieldCheck, Users, Phone,
@@ -82,7 +83,7 @@ const services = [
     icon: Volume2,
     badge: 'Audiology',
     procedures: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic Testing', 'Hearing Assessment & Care'],
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop'
+    image: audiologyClinicImg
   },
   {
     id: 'laboratory-services',
