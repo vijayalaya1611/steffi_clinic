@@ -25,14 +25,14 @@ function Footer() {
               <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md shadow-primary/30 border border-white/20 shrink-0">
                 <img
                   src={logo}
-                  alt="Steffi Clinic Logo"
+                  alt="STEFFI CLINIC Logo"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-xl font-extrabold text-white">Steffi</span>
-                  <span className="text-xl font-extrabold text-primary-lighter">Clinic</span>
+                  <span className="text-xl font-extrabold text-white">STEFFI</span>
+                  <span className="text-xl font-extrabold text-primary-lighter">CLINIC</span>
                 </div>
                 <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Specialised ENT & Surgical Center</p>
               </div>

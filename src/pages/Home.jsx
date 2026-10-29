@@ -8,7 +8,8 @@ import ClinicFacilities from '../components/ClinicFacilities'
 
 import operationRoomImg from '../assets/clinic/operation_room.webp'
 import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
-import audiologyClinicImg from '../assets/clinic/audiology_clinic.png'
+import audiometryImg from '../assets/clinic/audiometry.png'
+import cssdImg from '../assets/clinic/CSSD.jpg'
 
 import {
   Stethoscope, Baby, Award, ShieldCheck, Users, Phone,
@@ -82,7 +83,7 @@ const services = [
     icon: Volume2,
     badge: 'Audiology',
     procedures: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic Testing', 'Hearing Assessment & Care'],
-    image: audiologyClinicImg
+    image: audiometryImg
   },
   {
     id: 'laboratory-services',
@@ -103,6 +104,16 @@ const services = [
     badge: 'Surgical Suite',
     procedures: ['Adenotonsillectomy', 'Functional Endoscopic Sinus Surgery (FESS)', 'Mastoid Exploration Surgery'],
     image: operationRoomImg
+  },
+  {
+    id: 'cssd-facility',
+    title: 'Sterilization Facility (CSSD)',
+    category: 'Surgical & Inpatient',
+    desc: 'Central Sterile Services Department following established sterilization protocols for medical instruments.',
+    icon: ShieldCheck,
+    badge: 'CSSD Facility',
+    procedures: ['Established Sterilization Protocols', 'Advanced Autoclave Processing', 'Strict Instrument Infection Control'],
+    image: cssdImg
   },
   {
     id: 'inpatient-facilities',
@@ -201,7 +212,7 @@ const testimonials = [
   {
     name: 'Patient Review • Nasal & Sinus Care',
     role: 'FESS & Allergic Rhinitis Management',
-    text: 'Steffi Clinic provided accurate assessment and relief for my chronic sinus issues. The doctors explained the findings thoroughly and the care was compassionate.',
+    text: 'STEFFI CLINIC provided accurate assessment and relief for my chronic sinus issues. The doctors explained the findings thoroughly and the care was compassionate.',
     rating: 5,
     department: 'Sinus & Allergy Care',
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop'
@@ -217,7 +228,7 @@ const testimonials = [
   {
     name: 'Patient Review • Vertigo & Balance',
     role: 'Vestibular Evaluation & Audiology',
-    text: 'After months of recurrent dizziness, the vertigo assessment and audiological testing at Steffi Clinic accurately identified the root cause and helped me recover.',
+    text: 'After months of recurrent dizziness, the vertigo assessment and audiological testing at STEFFI CLINIC accurately identified the root cause and helped me recover.',
     rating: 5,
     department: 'Vertigo & Balance Clinic',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop'
@@ -298,7 +309,7 @@ function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl leading-relaxed"
               >
-                Steffi Clinic provides specialised care for conditions affecting the ear, nose and throat, supported by dedicated specialty clinics, audiology services, diagnostic investigations and advanced surgical facilities.
+                STEFFI CLINIC provides specialised care for conditions affecting the ear, nose and throat, supported by dedicated specialty clinics, audiology services, diagnostic investigations and advanced surgical facilities.
               </motion.p>
 
               {/* CTAs */}
@@ -524,13 +535,13 @@ function Home() {
             {/* Left Header */}
             <div className="lg:col-span-5">
               <span className="inline-block px-3.5 py-1 rounded-full bg-teal-100/80 text-primary-dark font-bold text-xs uppercase tracking-wider mb-3">
-                Why Steffi Clinic?
+                Why STEFFI CLINIC?
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
                 Expert ENT Care, Thoughtfully Delivered
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-8">
-                Every patient is different. At Steffi Clinic, we begin by understanding your symptoms and concerns, followed by appropriate examination and investigations. From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
+                Every patient is different. At STEFFI CLINIC, we begin by understanding your symptoms and concerns, followed by appropriate examination and investigations. From consultation and diagnosis to treatment and recovery, STEFFI CLINIC brings essential ENT services together in one place.
               </p>
 
               <div className="space-y-4">
@@ -756,7 +767,7 @@ function Home() {
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-            From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
+            From consultation and diagnosis to treatment and recovery, STEFFI CLINIC brings essential ENT services together in one place.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -766,7 +777,7 @@ function Home() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-primary to-primary-light text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-primary/30 hover:shadow-2xl transition-all text-base cursor-pointer"
               >
-                <span>Contact Steffi Clinic</span>
+                <span>Contact STEFFI CLINIC</span>
                 <ArrowRight size={18} />
               </motion.button>
             </Link>

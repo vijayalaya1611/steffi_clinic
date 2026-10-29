@@ -85,14 +85,14 @@ function Navbar() {
               <div className="relative shrink-0">
                 <img
                   src={logo}
-                  alt="Steffi Clinic Logo"
+                  alt="STEFFI CLINIC Logo"
                   className="w-12 h-12 rounded-2xl object-cover shadow-md shadow-primary/20 border border-slate-200/80 group-hover:scale-105 group-hover:shadow-lg transition-all duration-300"
                 />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-extrabold text-slate-900 tracking-tight">Steffi</span>
-                  <span className="text-2xl font-extrabold text-primary tracking-tight">Clinic</span>
+                  <span className="text-2xl font-extrabold text-slate-900 tracking-tight">STEFFI</span>
+                  <span className="text-2xl font-extrabold text-primary tracking-tight">CLINIC</span>
                 </div>
                 <span className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">
                   Specialised ENT & Surgical Care

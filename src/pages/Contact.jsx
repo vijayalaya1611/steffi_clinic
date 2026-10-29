@@ -48,7 +48,7 @@ function Contact() {
     <div className="overflow-hidden">
       <PageBanner
         title="Contact"
-        highlight="Steffi Clinic"
+        highlight="STEFFI CLINIC"
         breadcrumb="Contact"
         subtitle="Specialised ENT Care, Thoughtfully Delivered. Reach out to our clinical team for consultations, diagnostic investigations, and surgical inquiries."
         badge="Specialised ENT Care • Mayiladuthurai, Tamil Nadu"
@@ -101,7 +101,7 @@ function Contact() {
                       <MapPin size={20} />
                     </div>
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Steffi Clinic Location</h3>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">STEFFI CLINIC Location</h3>
                       <p className="text-xs text-teal-300 font-semibold">Specialised ENT & Surgical Facilities</p>
                     </div>
                   </div>
@@ -129,7 +129,7 @@ function Contact() {
               {/* Embedded Interactive Google Maps Iframe */}
               <div className="relative h-96 sm:h-[420px] w-full bg-slate-100">
                 <iframe
-                  title="Steffi Clinic Google Map"
+                  title="STEFFI CLINIC Google Map"
                   src="https://maps.google.com/maps?q=11.1043359,79.6493735&t=&z=17&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full border-0"
                   allowFullScreen=""
@@ -250,7 +250,7 @@ function Contact() {
               <span>Welcoming Clinic Environment</span>
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-              When You Visit Steffi Clinic
+              When You Visit STEFFI CLINIC
             </h2>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
               Designed for patient convenience, comfort, and clinical hygiene. Here is what awaits you at our Mayiladuthurai center.
@@ -263,7 +263,7 @@ function Contact() {
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={clinicExteriorImg}
-                  alt="Steffi Clinic Hospital Building & Main Entrance"
+                  alt="STEFFI CLINIC Hospital Building & Main Entrance"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
@@ -293,7 +293,7 @@ function Contact() {
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={receptionImg}
-                  alt="Steffi Clinic Main Reception & Welcome Desk"
+                  alt="STEFFI CLINIC Main Reception & Welcome Desk"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
@@ -323,7 +323,7 @@ function Contact() {
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={waitingArea1Img}
-                  alt="Steffi Clinic Patient Waiting Lounge"
+                  alt="STEFFI CLINIC Patient Waiting Lounge"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
@@ -353,7 +353,7 @@ function Contact() {
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={patientRoom2Img}
-                  alt="Steffi Clinic Inpatient Suite"
+                  alt="STEFFI CLINIC Inpatient Suite"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />

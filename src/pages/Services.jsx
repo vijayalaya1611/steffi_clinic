@@ -13,7 +13,8 @@ import { useScrollReveal } from '../utils/scrollReveal'
 
 import operationRoomImg from '../assets/clinic/operation_room.webp'
 import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
-import audiologyClinicImg from '../assets/clinic/audiology_clinic.png'
+import audiometryImg from '../assets/clinic/audiometry.png'
+import cssdImg from '../assets/clinic/CSSD.jpg'
 
 const categories = [
   'All Services',
@@ -75,7 +76,7 @@ const services = [
     title: 'Audiology Clinic',
     desc: 'Assessment and management of hearing-related disorders assisting in diagnosis and guiding appropriate rehabilitation.',
     features: ['Pure Tone Audiometry (PTA)', 'Psychoacoustic testing', 'Comprehensive hearing assessments', 'Hearing rehabilitation advice'],
-    image: audiologyClinicImg,
+    image: audiometryImg,
     duration: 'Diagnostic'
   },
   {
@@ -111,7 +112,7 @@ const services = [
     title: 'Sterilization Facility (CSSD)',
     desc: 'Central Sterile Services Department following established sterilization protocols for medical instruments.',
     features: ['Established sterilization protocols', 'Advanced autoclave & processing units', 'Trained sterilization technicians', 'Uncompromising patient safety standards'],
-    image: 'https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&h=400&fit=crop',
+    image: cssdImg,
     duration: 'CSSD Facility'
   },
   {

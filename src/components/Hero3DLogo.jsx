@@ -146,7 +146,7 @@ export default function Hero3DLogo() {
               <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden bg-white flex items-center justify-center p-2.5">
                 <img
                   src={logo}
-                  alt="Steffi Clinic Logo"
+                  alt="STEFFI CLINIC Logo"
                   className="w-full h-full object-contain filter drop-shadow-sm select-none"
                   draggable={false}
                 />

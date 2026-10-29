@@ -77,7 +77,7 @@ const leadership = [
 const storyPreviews = [
   {
     id: 'exterior',
-    title: 'Steffi Clinic Hospital Building',
+    title: 'STEFFI CLINIC Hospital Building',
     badge: 'Hospital Building',
     desc: 'Conveniently located multi-storey ENT hospital opposite Vijaya Theatre in Mayiladuthurai.',
     image: clinicExteriorImg,
@@ -117,7 +117,7 @@ function About() {
     <div className="overflow-hidden">
       <PageBanner
         title="About"
-        highlight="Steffi Clinic"
+        highlight="STEFFI CLINIC"
         breadcrumb="About Us"
         subtitle="Expert ENT Care, Thoughtfully Delivered — Specialised Ear, Nose & Throat Services in a Comfortable Clinical Environment"
         badge="Specialised ENT Healthcare"
@@ -135,13 +135,13 @@ function About() {
             </h2>
             <div className="space-y-6 text-lg text-text-secondary leading-relaxed font-light">
               <p>
-                Every patient is different. At Steffi Clinic, we provide specialised care for conditions affecting the ear, nose and throat, supported by dedicated specialty clinics, audiology services, diagnostic investigations and advanced surgical facilities.
+                Every patient is different. At STEFFI CLINIC, we provide specialised care for conditions affecting the ear, nose and throat, supported by dedicated specialty clinics, audiology services, diagnostic investigations and advanced surgical facilities.
               </p>
               <p>
                 We begin by understanding your symptoms and concerns, followed by appropriate clinical examination and investigations. Where treatment is required, our team discusses the available options and develops a plan suited to the patient's condition.
               </p>
               <p>
-                From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
+                From consultation and diagnosis to treatment and recovery, STEFFI CLINIC brings essential ENT services together in one place.
               </p>
             </div>
             <div className="mt-10 flex gap-4">
@@ -336,7 +336,7 @@ function About() {
             Specialised ENT Care. Trusted Expertise.
           </h2>
           <p className="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
+            From consultation and diagnosis to treatment and recovery, STEFFI CLINIC brings essential ENT services together in one place.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/contact">
@@ -345,7 +345,7 @@ function About() {
                 whileTap={{ scale: 0.98 }}
                 className="btn-primary text-base px-8 py-4 cursor-pointer"
               >
-                Contact Steffi Clinic
+                Contact STEFFI CLINIC
               </motion.button>
             </Link>
             <Link to="/services">

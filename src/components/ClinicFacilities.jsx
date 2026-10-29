@@ -11,11 +11,13 @@ import patientsRoomImg from '../assets/clinic/patients_room.webp'
 import patientRoom2Img from '../assets/clinic/patient_room_2.webp'
 import receptionImg from '../assets/clinic/reception.webp'
 import waitingArea1Img from '../assets/clinic/waiting_area1.webp'
+import audiometryImg from '../assets/clinic/audiometry.png'
+import cssdImg from '../assets/clinic/CSSD.jpg'
 
 const clinicImages = [
   {
     id: 'clinic_exterior',
-    title: 'Steffi Clinic Building & Entrance',
+    title: 'STEFFI CLINIC Building & Entrance',
     category: 'Exterior & Reception',
     subtitle: 'Purpose-built multi-storey ENT hospital located conveniently opposite Vijaya Theatre in Mayiladuthurai.',
     image: clinicExteriorImg,
@@ -78,10 +80,32 @@ const clinicImages = [
     badge: 'Recovery Facility',
     icon: ShieldCheck,
     features: ['24/7 Nursing Supervision', 'Single AC Patient Privacy', 'Family Seating & Care Amenities']
+  },
+  {
+    id: 'cssd_facility',
+    title: 'Sterilization Facility (CSSD)',
+    category: 'Operation Theatre',
+    subtitle: 'Central Sterile Services Department following established sterilization and autoclave protocols for surgical instruments.',
+    image: cssdImg,
+    aspect: 'landscape',
+    badge: 'CSSD Facility',
+    icon: ShieldCheck,
+    features: ['Central Sterilization Unit', 'High-Pressure Autoclave', 'Strict Infection Control']
+  },
+  {
+    id: 'audiology_clinic',
+    title: 'Audiology Clinic & Hearing Testing',
+    category: 'Audiology & Diagnostics',
+    subtitle: 'Soundproof audiometry testing booth with digital Pure Tone Audiometry and clinical hearing evaluation systems.',
+    image: audiometryImg,
+    aspect: 'landscape',
+    badge: 'Audiology Suite',
+    icon: Stethoscope,
+    features: ['Soundproof Audiometry Booth', 'Pure Tone Audiometry (PTA)', 'Psychoacoustic Testing']
   }
 ]
 
-const categories = ['All Facilities', 'Exterior & Reception', 'Operation Theatre', 'Inpatient Suites']
+const categories = ['All Facilities', 'Exterior & Reception', 'Operation Theatre', 'Inpatient Suites', 'Audiology & Diagnostics']
 
 export default function ClinicFacilities() {
   const [activeCategory, setActiveCategory] = useState('All Facilities')
@@ -120,7 +144,7 @@ export default function ClinicFacilities() {
             Our Clinic & Inpatient Facilities
           </h2>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-            Step inside Steffi Clinic. Take a look at our building facade, welcoming reception, sterile laminar-flow surgical complex, patient waiting lounge, and comfortable air-conditioned single inpatient recovery suites.
+            Step inside STEFFI CLINIC. Take a look at our building facade, welcoming reception, sterile laminar-flow surgical complex, patient waiting lounge, and comfortable air-conditioned single inpatient recovery suites.
           </p>
 
           {/* Filter Pills */}
@@ -129,11 +153,10 @@ export default function ClinicFacilities() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  activeCategory === cat
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${activeCategory === cat
                     ? 'bg-primary text-white shadow-md shadow-primary/25 scale-105'
                     : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 hover:text-slate-900'
-                }`}
+                  }`}
               >
                 {cat}
               </button>

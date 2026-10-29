@@ -14,7 +14,7 @@ export default function HeroShowcase() {
           {/* Steady, High-Definition Operation Room Image (Zero Rolling/Zooming) */}
           <img
             src={operationRoomImg}
-            alt="Steffi Clinic Laminar-Flow Operation Theatre"
+            alt="STEFFI CLINIC Laminar-Flow Operation Theatre"
             className="w-full h-full object-cover object-center brightness-[1.05] contrast-[1.03]"
             loading="eager"
           />

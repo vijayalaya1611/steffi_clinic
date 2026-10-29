@@ -244,7 +244,7 @@ function Doctors() {
             Specialised ENT Care. Trusted Expertise.
           </h2>
           <p className="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            From consultation and diagnosis to treatment and recovery, Steffi Clinic brings essential ENT services together in one place.
+            From consultation and diagnosis to treatment and recovery, STEFFI CLINIC brings essential ENT services together in one place.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/contact">
