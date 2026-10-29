@@ -13,27 +13,7 @@ function Footer() {
           <div className="absolute -top-20 -right-20 w-60 h-60 bg-white rounded-full blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white rounded-full blur-3xl" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-xl font-extrabold tracking-tight mb-1">Subscribe to Our Healthcare Newsletter</h3>
-            <p className="text-slate-300 text-sm">Get verified health advice, wellness tips, and clinic updates directly to your inbox.</p>
-          </div>
-          <div className="flex w-full md:w-auto gap-2">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="px-5 py-3 rounded-xl bg-white/15 placeholder-white/60 text-white border border-white/20 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-white/20 flex-1 md:w-80 text-sm font-medium transition"
-            />
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white text-primary font-bold px-6 py-3 rounded-xl hover:bg-slate-100 transition-colors text-sm whitespace-nowrap flex items-center gap-2 shadow-lg cursor-pointer"
-            >
-              <Send size={16} />
-              Subscribe
-            </motion.button>
-          </div>
-        </div>
+
       </div>
 
       {/* Main Footer */}
@@ -157,7 +137,7 @@ function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-white/50 uppercase mb-1">Address</p>
-                  <p className="text-white/90 text-sm font-medium">19, Avayambalpuram St, opp. Vijaya Theatre, Gandhi Nagar, Mappadugai, Mayiladuthurai, Tamil Nadu 609001</p>
+                  <p className="text-white/90 text-sm font-medium">19, Avayambalpuram St, opp. Vijaya Theatre, Gandhi Nagar, Mayiladuthurai, Tamil Nadu 609001</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -166,8 +146,7 @@ function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-white/50 uppercase mb-1">Hours</p>
-                  <p className="text-white/90 text-sm font-medium">Mon-Fri: 8AM - 8PM</p>
-                  <p className="text-white/90 text-sm font-medium">Sat: 9AM - 5PM</p>
+                  <p className="text-white/90 text-sm font-medium">Mon - Sat: 9:00 AM – 8:00 PM</p>
                 </div>
               </li>
             </ul>

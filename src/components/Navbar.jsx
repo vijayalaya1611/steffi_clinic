@@ -61,7 +61,7 @@ function Navbar() {
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-1.5 text-slate-400">
               <Clock size={13} className="text-primary-light" />
-              <span>Mon - Sat: 8:00 AM - 8:00 PM</span>
+              <span>Mon - Sat: 9:00 AM - 8:00 PM</span>
             </div>
             <span className="hidden sm:inline text-slate-700">|</span>
             <span className="inline-flex items-center gap-1.5 text-[11px] font-medium bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/20">

@@ -18,7 +18,7 @@ import {
 
 const stats = [
   { value: 5, suffix: '+', label: 'Specialty ENT Clinics', icon: Award, sub: 'Allergy, Paediatric, Snoring, Vertigo, Voice' },
-  { value: 3, suffix: '', label: 'Consultant Specialists', icon: Users, sub: 'Experienced M.S. (ENT) & D.L.O. Surgeons' },
+  { value: 3, suffix: '', label: 'Consultant Specialists', icon: Users, sub: 'Experienced M.S. (ENT)' },
   { value: 5, suffix: ' AC', label: 'Single Inpatient Rooms', icon: BedDouble, sub: 'Private recovery & ventilator support' },
   { value: 100, suffix: '%', label: 'CSSD Sterilization', icon: ShieldCheck, sub: 'Established clinical instrument safety' }
 ]
@@ -566,7 +566,7 @@ function Home() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">Advanced Surgical & Inpatient Facilities</h4>
-                    <p className="text-xs text-slate-500">Laminar-flow OT, CSSD sterilization, and 5 air-conditioned single rooms with dedicated recovery.</p>
+                    <p className="text-xs text-slate-500">Laminar-flow OT, CSSD sterilization, and Air-conditioned single rooms with dedicated recovery.</p>
                   </div>
                 </div>
               </div>

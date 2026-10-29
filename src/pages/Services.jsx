@@ -87,15 +87,6 @@ const services = [
     duration: 'Same-Day Tests'
   },
   {
-    category: 'Audiology & Diagnostics',
-    icon: HeartPulse,
-    title: 'Specialised Health Packages',
-    desc: 'Comprehensive diagnostic screening packages tailored for cardiac and diabetic health monitoring.',
-    features: ['Cardiac Health Package', 'Diabetic Health Package', 'Vital organ parameter checks', 'Physician report review'],
-    image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop',
-    duration: 'Health Package'
-  },
-  {
     category: 'Surgeries & Operation Theatre',
     icon: Microscope,
     title: 'Operation Theatre Complex',
@@ -127,7 +118,7 @@ const services = [
     icon: BedDouble,
     title: 'Inpatient Facilities',
     desc: 'A comfortable space for recovery with five air-conditioned single rooms, providing privacy and comfort for patients.',
-    features: ['5 Air-conditioned single rooms', 'Comfortable patient beds', 'Dedicated recovery room', 'Ventilator-supported recovery facility'],
+    features: ['Air-conditioned single rooms', 'Comfortable patient beds', 'Dedicated recovery room', 'Ventilator-supported recovery facility'],
     image: patientRoom2Img,
     duration: 'Inpatient Care'
   },
@@ -179,11 +170,10 @@ function Services() {
               <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
-                className={`px-8 py-4 rounded-full text-base font-bold transition-all duration-300 cursor-pointer ${
-                  activeTab === cat
-                    ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
-                    : 'bg-white text-text-secondary hover:bg-primary/10 hover:text-primary border border-gray-200'
-                }`}
+                className={`px-8 py-4 rounded-full text-base font-bold transition-all duration-300 cursor-pointer ${activeTab === cat
+                  ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
+                  : 'bg-white text-text-secondary hover:bg-primary/10 hover:text-primary border border-gray-200'
+                  }`}
               >
                 {cat}
               </button>

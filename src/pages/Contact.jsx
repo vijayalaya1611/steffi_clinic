@@ -39,9 +39,8 @@ const contactInfo = [
 ]
 
 const hours = [
-  { day: 'Monday - Friday', time: '8:00 AM - 8:00 PM' },
-  { day: 'Saturday', time: '8:00 AM - 6:00 PM' },
-  { day: 'Sunday & Inpatient', time: '24/7 Inpatient Nursing Care' },
+  { day: 'Monday - Saturday', time: '9:00 AM - 8:00 PM' },
+  { day: 'Sunday & Public Holidays', time: 'Inpatient Nursing Care Available' },
 ]
 
 function Contact() {
@@ -118,7 +117,7 @@ function Contact() {
                 </div>
 
                 <p className="text-teal-100/90 text-sm font-medium leading-relaxed mt-3">
-                  19, Avayambalpuram Street, Opposite to Vijaya Theatre, Gandhi Nagar, Mappadugai, Mayiladuthurai, Tamil Nadu 609001
+                  19, Avayambalpuram Street, Opposite to Vijaya Theatre, Gandhi Nagar, Mayiladuthurai, Tamil Nadu 609001
                 </p>
 
                 <div className="mt-3.5 flex flex-wrap items-center gap-2 text-xs text-teal-200/90">
